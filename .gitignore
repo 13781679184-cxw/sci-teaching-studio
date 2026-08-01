@@ -1,0 +1,25 @@
+# Dependencies / venvs
+backend/.venv/
+frontend/node_modules/
+frontend/dist/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local studio data & secrets (API keys live here)
+workspace/
+**/_settings/
+**/_job_logs/
+*.log
+
+# Env
+.env
+.env.*
+!.env.example
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

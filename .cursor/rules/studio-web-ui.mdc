@@ -1,0 +1,23 @@
+---
+description: Sci Teaching Studio web UI — clean workbench principles
+alwaysApply: true
+---
+
+# Studio Web UI
+
+When changing `sci-teaching-studio/frontend`, optimize the product without waiting for annotated screenshots.
+
+## Principles (from product feedback)
+
+1. **Quiet by default** — No status chatter on the main surface (`真实截图` / `故事板` / `正在 PowerPoint…` / QA 错误计数 / 长 title 提示). Put detail in tooltips, logs, or「更多」.
+2. **One primary next** — Each gate’s main forward action is **下一步**. Secondary work actions (检索、一键配图、预览导出) stay visible; rare ops go in「更多」.
+3. **Context, not chrome** — Page-local actions sit next to the thing they affect (重生/改图 under the slide; 讲稿 under that page). Don’t park a second toolbar above the stage.
+4. **Merge related steps** — Prefer one composed action over two sequential buttons (检索并初筛; 讲稿 inside 预览). Don’t add stepper steps unless the user must decide something new.
+5. **Short copy** — Placeholders ≤ 一短句; no chip walls unless the page’s job is brainstorming. Prefer `variant="inline"` copilots near the work.
+6. **Paper studio, not dashboard** — Thin rail, flat stage, few cards, no pill piles. Match existing pine/paper tokens in `styles.css`.
+
+## Before finishing a UI change
+
+- Scan the first viewport: can any label/button be deleted without losing a real decision?
+- Is the primary path still「看内容 → 做事 → 下一步」?
+- Did you reintroduce status text the user already asked to remove?
