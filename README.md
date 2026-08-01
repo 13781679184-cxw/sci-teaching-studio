@@ -12,10 +12,10 @@
 
 **约定时段给同事用同一网页**（你开着机 + 临时隧道）：见 [`SHARE-HOURS.md`](SHARE-HOURS.md)。
 
-依赖旁路引擎仓库 **[sci-teaching-deck](../sci-teaching-deck)**（Skill / CLI 管线）。两仓请放在同一父目录下：
+依赖旁路引擎仓库 **[sci-teaching-deck](https://github.com/13781679184-cxw/sci-teaching-deck)**（Skill / CLI 管线）。两仓请放在同一父目录下：
 
 ```text
 parent/
-  sci-teaching-deck/
-  sci-teaching-studio/   ← 本仓库
+  sci-teaching-deck/      # https://github.com/13781679184-cxw/sci-teaching-deck
+  sci-teaching-studio/    # 本仓库
 ```
