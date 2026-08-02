@@ -8,6 +8,7 @@ import { StudioCopilot } from './StudioCopilot.jsx'
 import { ProvidersModal } from './ProvidersModal.jsx'
 import { ThemePicker } from './ThemePicker.jsx'
 import { IS_DEMO, DEMO_PROJECT_ID, DEMO_COURSE_TITLE, DEMO_AUDIENCE, DEMO_MINUTES } from './demo/mode.js'
+import { resetDemoWalkthrough, unlockDemoWalkthrough } from './demo/api.js'
 
 const GATES = [
   { id: 'input', label: '输入', gate: null },
@@ -270,10 +271,12 @@ export default function App() {
     setProjects(data.projects || [])
   }, [])
 
-  const loadProject = useCallback(async (id, { resetScreen = true } = {}) => {
+  const loadProject = useCallback(async (id, { resetScreen = true, demoWalk = false } = {}) => {
     setError('')
     setCreating(false)
     setProjectId(id)
+    // Opening from the project list shows the full snapshot; walkthrough must not unlock early.
+    if (IS_DEMO && resetScreen && !demoWalk) unlockDemoWalkthrough()
     const d = await api.getProject(id)
     setDetail(d)
     setThemeId(d.theme_id || 'green')
@@ -573,6 +576,7 @@ export default function App() {
     setError('')
     try {
       const id = form.project_id
+      if (IS_DEMO) resetDemoWalkthrough()
       await api.createProject({
         project_id: id,
         prompt: form.prompt,
@@ -586,16 +590,15 @@ export default function App() {
         setPendingFiles([])
       }
       await refreshProjects()
-      // Demo always opens the packed showcase course after「开始生成」
       const loadId = IS_DEMO ? DEMO_PROJECT_ID : id
-      await loadProject(loadId, { resetScreen: false })
+      await loadProject(loadId, { resetScreen: false, demoWalk: IS_DEMO })
       setCreating(false)
-      if (IS_DEMO) {
-        setPendingOutlineGen(false)
-        setScreen('complete')
-      } else {
-        setPendingOutlineGen(true)
-        setScreen('theme')
+      setPendingOutlineGen(true)
+      setScreen('theme')
+      try {
+        localStorage.removeItem(LAST_SCREEN_KEY(loadId))
+      } catch {
+        /* ignore */
       }
       setBusy(false)
     } catch (err) {
@@ -917,7 +920,7 @@ export default function App() {
                 <h1>想讲点什么？</h1>
                 <p className="lead">
                   {IS_DEMO
-                    ? `公开展示站目前只演示课程「${DEMO_COURSE_TITLE}」。题目与代号已填好，直接点「开始生成」即可浏览完整成品。`
+                    ? `公开展示站目前只演示课程「${DEMO_COURSE_TITLE}」。题目与代号已填好：点「开始生成」后按版式 → 大纲 → 文献 → 配图逐步走，各步加载已有成品快照。`
                     : '写下一题或一段说明，会先生成大纲，再走文献、配图与讲稿。'}
                 </p>
 

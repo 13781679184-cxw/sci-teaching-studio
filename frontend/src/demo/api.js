@@ -1,4 +1,4 @@
-import { DEMO_PROJECT_ID } from './mode.js'
+import { DEMO_PROJECT_ID, DEMO_COURSE_TITLE } from './mode.js'
 
 const BASE = import.meta.env.BASE_URL || '/'
 
@@ -8,6 +8,49 @@ let themeState = null
 let outline = null
 let lecture = null
 let jobSeq = 1
+const jobStore = new Map()
+
+/** Progressive unlock so「开始生成」walks like a new project, then reveals packed data. */
+let reveal = {
+  outline: false,
+  sources: false,
+  figures: false,
+  slides: false,
+}
+
+export function resetDemoWalkthrough() {
+  reveal = { outline: false, sources: false, figures: false, slides: false }
+  jobStore.clear()
+}
+
+/** Sidebar / finished project: show full snapshot. */
+export function unlockDemoWalkthrough() {
+  reveal = { outline: true, sources: true, figures: true, slides: true }
+}
+
+function unlockForStep(step) {
+  const s = String(step || '')
+  if (s === 'generate_outline') reveal.outline = true
+  if (s === 'retrieve' || s === 'retrieve_screen' || s === 'confirm_sources') reveal.sources = true
+  if (s === 'fill' || s === 'fill_skip_resolved') {
+    reveal.figures = true
+    reveal.slides = true
+  }
+  if (s === 'export_slides' || s === 'rerender_export' || s === 'rerender') {
+    reveal.figures = true
+    reveal.slides = true
+  }
+  if (s === 'run_default_pipeline' || s === 'draft' || s === 'lecture_script') {
+    unlockDemoWalkthrough()
+  }
+}
+
+function unlockForGate(gate) {
+  const g = String(gate || '')
+  if (g === 'gate1_outline') reveal.sources = true
+  if (g === 'gate2_sources') reveal.figures = true
+  if (g === 'gate3_evidence_visual') reveal.slides = true
+}
 
 function assetUrl(rel) {
   if (!rel) return null
@@ -36,7 +79,6 @@ function fixSlides(slidesPack) {
 async function ensurePack() {
   if (pack) return pack
   if (!packPromise) {
-    // Bust GH Pages / browser cache so lecture updates show up immediately.
     const bust = import.meta.env.VITE_DEMO_BUILD || Date.now()
     packPromise = fetch(`${BASE}showcase/my-ppt/pack.json?v=${bust}`, { cache: 'no-store' })
       .then(async (r) => {
@@ -62,6 +104,10 @@ async function ensurePack() {
 
 function okJob(step) {
   const id = `demo-${jobSeq++}`
+  const fillOk =
+    step === 'fill' || step === 'fill_skip_resolved'
+      ? 'generated via bl · bailian=3\n'
+      : ''
   return {
     job_id: id,
     project_id: DEMO_PROJECT_ID,
@@ -70,13 +116,23 @@ function okJob(step) {
     returncode: 0,
     created_at: new Date().toISOString(),
     finished_at: new Date().toISOString(),
-    log_tail: `[showcase] ${step} · 静态展示站：不跑真实管线\n`,
+    log_tail: `[showcase] ${step} · 演示加载已有快照（不跑真实管线）\n${fillOk}`,
     cancel_requested: false,
   }
 }
 
 function delay(ms = 200) {
   return new Promise((r) => setTimeout(r, ms))
+}
+
+function emptyOutline() {
+  return {
+    course_title: outline?.course_title || DEMO_COURSE_TITLE,
+    audience: outline?.audience || '',
+    target_minutes: outline?.target_minutes || 50,
+    status: 'draft',
+    sections: [],
+  }
 }
 
 export const demoApi = {
@@ -99,8 +155,19 @@ export const demoApi = {
   },
   getProject: async () => {
     const p = await ensurePack()
+    const artifacts = { ...(p.detail?.artifacts || {}) }
+    // While walking, don't advertise a finished deck so resume logic stays on early steps.
+    if (!reveal.slides) {
+      artifacts['deck/final.pptx'] = false
+      artifacts['deck/draft-with-images.pptx'] = false
+      artifacts['source/slide_plan.json'] = false
+    }
+    if (!reveal.figures) artifacts['source/figure_catalog.json'] = false
+    if (!reveal.sources) artifacts['source/sources.json'] = false
+    if (!reveal.outline) artifacts['source/outline.json'] = false
     return {
       ...p.detail,
+      artifacts,
       theme_id: themeState.theme_id || p.detail.theme_id,
       theme: {
         ...(p.detail.theme || {}),
@@ -112,7 +179,8 @@ export const demoApi = {
     }
   },
   createProject: async () => {
-    await delay()
+    resetDemoWalkthrough()
+    await delay(400)
     return { project_id: DEMO_PROJECT_ID, id: DEMO_PROJECT_ID }
   },
   registerUat: async () => ({ ok: true }),
@@ -120,10 +188,11 @@ export const demoApi = {
   uploadMaterials: async () => ({ ok: true, count: 0 }),
   getOutline: async () => {
     await ensurePack()
-    return outline
+    return reveal.outline ? structuredClone(outline) : emptyOutline()
   },
   putOutline: async (_id, next) => {
     outline = next
+    reveal.outline = true
     return outline
   },
   getBrief: async () => ({
@@ -133,19 +202,31 @@ export const demoApi = {
   putBrief: async () => ({ ok: true }),
   getSources: async () => {
     const p = await ensurePack()
+    if (!reveal.sources) {
+      return {
+        project_id: DEMO_PROJECT_ID,
+        sources: [],
+        counts: { total: 0, selected: 0, proposed: 0, rejected: 0 },
+      }
+    }
     return p.sources
   },
   decideSource: async () => {
     const p = await ensurePack()
+    reveal.sources = true
     return p.sources
   },
   addManualSource: async () => {
     const p = await ensurePack()
+    reveal.sources = true
     return p.sources
   },
   uploadSourcePdfs: async () => ({ ok: true }),
   getFigures: async () => {
     const p = await ensurePack()
+    if (!reveal.figures) {
+      return { project_id: DEMO_PROJECT_ID, figures: [], counts: { total: 0 } }
+    }
     return p.figures
   },
   deleteFigure: async () => ({ ok: true }),
@@ -158,6 +239,9 @@ export const demoApi = {
   restoreVisualSnapshot: async () => ({ restored_from: null, count: 0 }),
   getSlides: async () => {
     const p = await ensurePack()
+    if (!reveal.slides) {
+      return { project_id: DEMO_PROJECT_ID, count: 0, has_exports: false, slides: [] }
+    }
     return p.slides
   },
   getQa: async () => {
@@ -166,26 +250,37 @@ export const demoApi = {
   },
   getLectureScript: async () => {
     await ensurePack()
-    return { text: lecture }
+    return { text: reveal.slides ? lecture : '' }
   },
   putLectureScript: async (_id, text) => {
     lecture = text
     return { ok: true }
   },
   regenerateLecturePage: async () => ({ ok: true }),
-  confirmGate: async () => ({ ok: true }),
-  startJob: async (_id, step) => {
+  confirmGate: async (_id, gate) => {
+    unlockForGate(gate)
     await delay(350)
-    return okJob(step)
+    return { ok: true }
   },
-  getJob: async (jobId) => ({
-    job_id: jobId,
-    project_id: DEMO_PROJECT_ID,
-    step: 'showcase',
-    status: 'ok',
-    returncode: 0,
-    log_tail: '[showcase] done\n',
-  }),
+  startJob: async (_id, step) => {
+    await delay(1100)
+    unlockForStep(step)
+    const j = okJob(step)
+    jobStore.set(j.job_id, j)
+    return j
+  },
+  getJob: async (jobId) => {
+    const j = jobStore.get(jobId)
+    if (j) return j
+    return {
+      job_id: jobId,
+      project_id: DEMO_PROJECT_ID,
+      step: 'showcase',
+      status: 'ok',
+      returncode: 0,
+      log_tail: '[showcase] done\n',
+    }
+  },
   cancelJob: async () => ({ ok: true }),
   listJobs: async () => ({ jobs: [] }),
   downloadUrl: (_id, path) => {
@@ -200,7 +295,7 @@ export const demoApi = {
   }),
   copilotStudio: async () => ({
     ok: true,
-    summary: '展示站：界面与样例项目同你本机；检索/生图/导出不会真正执行。',
+    summary: '展示站：按真实流程逐步浏览样例课程；检索/生图不会真正执行，结果来自快照。',
     actions: [],
   }),
   copilotFigure: async () => ({ ok: true, prompt_history: [] }),
@@ -233,7 +328,7 @@ export const demoApi = {
     if (p.accent) themeState.accent = p.accent
     if (p.page_designs) themeState.page_designs = { ...themeState.page_designs, ...p.page_designs }
     if (p.optional_pages) themeState.optional_pages = { ...themeState.optional_pages, ...p.optional_pages }
-    await delay(150)
+    await delay(250)
     return { ...themeState, designs: themeState.page_designs }
   },
 }
