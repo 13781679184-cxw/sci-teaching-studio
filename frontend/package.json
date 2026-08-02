@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "build:demo": "vite build --mode demo && node -e \"require('fs').copyFileSync('dist/index.html','dist/404.html')\"",
+    "preview": "vite preview",
+    "preview:demo": "vite preview --mode demo"
   },
   "dependencies": {
     "react": "^18.3.1",

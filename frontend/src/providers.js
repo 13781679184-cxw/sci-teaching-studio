@@ -1,3 +1,6 @@
+import { IS_DEMO } from './demo/mode.js'
+import { DEMO_PROVIDERS } from './demo/data.js'
+
 const LS_KEY = 'sci.studio.providers.v1'
 
 export function loadDraft() {
@@ -17,12 +20,14 @@ export function saveDraft(d) {
 }
 
 export async function fetchState() {
+  if (IS_DEMO) return DEMO_PROVIDERS
   const r = await fetch('/api/providers')
   if (!r.ok) throw new Error('providers ' + r.status)
   return r.json()
 }
 
 export async function saveToServer(payload) {
+  if (IS_DEMO) return { ...DEMO_PROVIDERS, ...payload, demo: true }
   const r = await fetch('/api/providers', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -34,6 +39,7 @@ export async function saveToServer(payload) {
 }
 
 export async function testConn(payload) {
+  if (IS_DEMO) return { ok: false, detail: '演示模式：未连接真实服务', models: [] }
   try {
     const r = await fetch('/api/providers/test', {
       method: 'POST',

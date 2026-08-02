@@ -7,6 +7,7 @@ import { SlidesPreview } from './SlidesPreview.jsx'
 import { StudioCopilot } from './StudioCopilot.jsx'
 import { ProvidersModal } from './ProvidersModal.jsx'
 import { ThemePicker } from './ThemePicker.jsx'
+import { IS_DEMO, DEMO_PROJECT_ID } from './demo/mode.js'
 
 const GATES = [
   { id: 'input', label: '输入', gate: null },
@@ -347,22 +348,35 @@ export default function App() {
   }, [projectId, screen, showInput, creating])
 
   useEffect(() => {
+    let cancelled = false
     ;(async () => {
       try {
         setHealth(await api.health())
         await refreshProjects()
         const t = await api.listThemes()
+        if (cancelled) return
         setThemes(t.themes || [])
         if (t.designs) setDesignsByKind(t.designs)
         if (t.default_designs) setPageDesigns((prev) => ({ ...prev, ...t.default_designs }))
         if (t.default) {
           setForm((f) => ({ ...f, theme_id: f.theme_id || t.default }))
         }
+        if (IS_DEMO) {
+          await loadProject(DEMO_PROJECT_ID, { resetScreen: true })
+          if (cancelled) return
+          setScreen('complete')
+          setCreating(false)
+        }
       } catch (e) {
-        setError(String(e.message || e))
+        if (!cancelled) setError(String(e.message || e))
       }
     })()
-  }, [refreshProjects])
+    return () => {
+      cancelled = true
+    }
+    // demo bootstrap once; loadProject/refreshProjects are stable enough for mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onJobDone = useCallback(
     async (j) => {
@@ -788,6 +802,22 @@ export default function App() {
           <span className={'dot' + (health ? ' on' : '')} title={health ? 'API 正常' : 'API 未就绪'} />
         </div>
       </header>
+
+      {IS_DEMO && (
+        <div className="demo-banner" role="status">
+          <strong>Sci Teaching Studio</strong>
+          <span>
+            简历演示站 · 样例课「Wnt/β-catenin」可点步进浏览。检索 / 生图 / 导出未接真实后端。
+          </span>
+          <a
+            href="https://github.com/13781679184-cxw/sci-teaching-studio"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+        </div>
+      )}
 
       {providersOpen && <ProvidersModal onClose={() => setProvidersOpen(false)} />}
 

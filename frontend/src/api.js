@@ -1,3 +1,6 @@
+import { IS_DEMO } from './demo/mode.js'
+import { demoApi } from './demo/api.js'
+
 const BASE = '/api'
 
 async function req(path, opts = {}) {
@@ -19,7 +22,7 @@ async function req(path, opts = {}) {
   return data
 }
 
-export const api = {
+const liveApi = {
   health: () => req('/health'),
   listProjects: () => req('/projects'),
   getProject: (id) => req(`/projects/${id}`),
@@ -148,3 +151,5 @@ export const api = {
       ),
     }),
 }
+
+export const api = IS_DEMO ? demoApi : liveApi

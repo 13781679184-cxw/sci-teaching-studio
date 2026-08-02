@@ -53,6 +53,30 @@ body {
 }
 .brand span { color: var(--accent); }
 
+.demo-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.55rem 1rem;
+  padding: 0.45rem 1.1rem;
+  background: linear-gradient(90deg, #eef5f2, #f7faf8);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.demo-banner strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+.demo-banner a {
+  color: var(--accent);
+  margin-left: auto;
+  text-decoration: none;
+  font-weight: 500;
+}
+.demo-banner a:hover { text-decoration: underline; }
+
 .stage.create-mode {
   display: flex;
   flex-direction: column;

@@ -407,9 +407,16 @@ def read_artifact(project_id: str, path: str):
         return P.load_json(project_id, rel)
     if target.suffix.lower() in {".md", ".txt"}:
         return JSONResponse({"path": rel, "text": target.read_text(encoding="utf-8")})
-    # binary download
+    # binary: inline for <img>, not attachment download
     media = mimetypes.guess_type(str(target))[0] or "application/octet-stream"
-    return FileResponse(target, media_type=media, filename=target.name)
+    return FileResponse(
+        target,
+        media_type=media,
+        headers={
+            "Cache-Control": "public, max-age=3600",
+            "Content-Disposition": f'inline; filename="{target.name}"',
+        },
+    )
 
 
 @app.get("/projects/{project_id}/download-pack")
