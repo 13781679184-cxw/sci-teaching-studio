@@ -83,7 +83,7 @@ function TreeActions({ onAdd, addLabel, onDelete, canDelete, onUp, onDown, canUp
 }
 
 /** Editable outline tree: course meta + section / KP / beat fields. */
-export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate, onBack, projectId, busy }) {
+export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate, projectId, busy }) {
   const [dirty, setDirty] = useState(false)
   const [collapsed, setCollapsed] = useState({})
   if (!outline) return <p className="muted">暂无大纲</p>
