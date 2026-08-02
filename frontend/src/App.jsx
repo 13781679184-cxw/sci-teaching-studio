@@ -759,7 +759,7 @@ export default function App() {
     fill_skip_resolved: '继续生图',
     export_slides: '导出预览',
     rerender: '重渲 PPT',
-    rerender_export: '重渲并刷新预览',
+    rerender_export: '重渲或刷新预览',
     lecture_script: '生成讲稿',
     deliver: '定稿',
   }
@@ -1042,7 +1042,7 @@ export default function App() {
             <div className="theme-step">
               <div className="toolbar">
                 <div className="toolbar-meta">
-                  版式 · 先选设计，点<strong>确定</strong>后写入并重渲
+                  版式 · 先选设计，点<strong>确定</strong>后写入或重渲
                 </div>
                 <div className="toolbar-actions">
                   <button
@@ -1070,8 +1070,9 @@ export default function App() {
                 onChangeOptional={draftOptionalPages}
               />
               <p className="theme-hint">
-                点选只改预览选中态；点「确定并应用」才会保存版式
-                {detail?.artifacts?.['source/slide_plan.json'] ? '并重新渲染 PPT' : ''}。
+                点选只改预览选中态；点「确定并应用」才会写入或重渲
+                {detail?.artifacts?.['source/slide_plan.json'] ? '（已有幻灯片时重渲 PPT）' : '（写入版式配置）'}
+                。
               </p>
             </div>
           )}
