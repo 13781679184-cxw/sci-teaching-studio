@@ -1085,6 +1085,7 @@ export default function App() {
               onSave={saveOutline}
               onConfirm={confirmCurrent}
               onGenerate={() => runStep('generate_outline')}
+              onBack={() => setScreen('theme')}
               projectId={projectId}
               busy={busy}
             />
