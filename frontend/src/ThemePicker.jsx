@@ -225,8 +225,14 @@ export function ThemePicker({
       seen.add(a)
       out.push({ id: `custom:${a}`, name: '自定义', accent: a, builtin: false })
     }
+    // Always surface the active accent (e.g. showcase 朱红) even if not in the theme list.
+    const cur = String(currentAccent || '').trim()
+    const curKey = cur.toUpperCase()
+    if (curKey && !seen.has(curKey)) {
+      out.push({ id: `current:${curKey}`, name: '当前', accent: cur, builtin: false })
+    }
     return out
-  }, [themeList, customAccents])
+  }, [themeList, customAccents, currentAccent])
 
   // Native `change` fires once when the OS color dialog closes; React `onChange` fires while dragging.
   useEffect(() => {

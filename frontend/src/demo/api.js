@@ -305,13 +305,19 @@ export const demoApi = {
   clearFigurePrompt: async () => ({ ok: true }),
   listThemes: async () => {
     await ensurePack()
+    // Match sci-teaching-deck BUILTIN_THEMES (incl. sample 朱红).
     return {
-      default: themeState?.theme_id || 'green',
+      default: themeState?.theme_id || 'red',
       default_designs: themeState?.page_designs || {},
       themes: [
-        { id: 'green', name: '松叶绿', accent: '#2F5D50', board: 'white' },
-        { id: 'blue', name: '湖水蓝', accent: '#2F5D8A', board: 'white' },
-        { id: 'terracotta', name: '陶土', accent: '#A65D3F', board: 'white' },
+        { id: 'green', name: '青绿', accent: '#2F5D50', board: 'white' },
+        { id: 'blue', name: '靛蓝', accent: '#2B5EA7', board: 'white' },
+        { id: 'red', name: '朱红', accent: '#C23B22', board: 'white' },
+        { id: 'purple', name: '葡萄紫', accent: '#6B4C9A', board: 'white' },
+        { id: 'gray', name: '石墨灰', accent: '#5C6370', board: 'white' },
+        { id: 'ochre', name: '赭石', accent: '#A05A2C', board: 'white' },
+        { id: 'teal', name: '潮汐青', accent: '#0D9488', board: 'white' },
+        { id: 'rose', name: '蔷薇', accent: '#BE185D', board: 'white' },
       ],
       designs: null,
     }
