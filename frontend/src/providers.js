@@ -1,5 +1,11 @@
 import { IS_DEMO } from './demo/mode.js'
-import { DEMO_PROVIDERS } from './demo/data.js'
+
+const DEMO_PROVIDERS = {
+  capabilities: { text: false, image: false, literature: false },
+  text: { configured: false, provider: 'demo', model: '' },
+  image: { configured: false, provider: 'demo', model: '' },
+  literature: { configured: false },
+}
 
 const LS_KEY = 'sci.studio.providers.v1'
 

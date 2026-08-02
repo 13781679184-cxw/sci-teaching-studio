@@ -807,7 +807,7 @@ export default function App() {
         <div className="demo-banner" role="status">
           <strong>Sci Teaching Studio</strong>
           <span>
-            简历演示站 · 样例课「Wnt/β-catenin」可点步进浏览。检索 / 生图 / 导出未接真实后端。
+            公开展示站 · 固定真实项目快照（界面与本机一致；配图/预览为真实导出图）。检索与生图为只读演示。
           </span>
           <a
             href="https://github.com/13781679184-cxw/sci-teaching-studio"

@@ -16,19 +16,21 @@
 
 ### 演示站（GitHub Pages）
 
-前端可打包为**纯静态演示**：预置 Wnt 样例课，可点「版式 / 大纲 / 文献 / 配图 / 完成」浏览 UI。
+公开展示站使用**真实项目快照**（`my-ppt`：小分子药物设计），界面与本机 Studio 一致，配图与页预览为真实文件。
 
 ```powershell
-cd sci-teaching-studio\frontend
+# 从 workspace/my-ppt 重新打包快照（改课件后重跑）
+cd sci-teaching-studio\backend
+..\.venv\Scripts\python.exe ..\scripts\pack_showcase.py   # 若无此 venv：用 deck 的 python + PYTHONPATH
+
+cd ..\frontend
 npm install
 npm run build:demo
 ```
 
-产物在 `frontend/dist/`。推送到 `main` 后由 GitHub Actions 发布到 Pages：
+产物在 `frontend/dist/`（含 `public/showcase/my-ppt`）。推送 `main` 后 Actions 发布：
 
 https://13781679184-cxw.github.io/sci-teaching-studio/
-
-（需在仓库 Settings → Pages 启用 GitHub Actions 作为源；首次打开该链接前请先跑通 workflow。）
 
 依赖旁路引擎仓库 **[sci-teaching-deck](https://github.com/13781679184-cxw/sci-teaching-deck)**（Skill / CLI 管线）。两仓请放在同一父目录下：
 
