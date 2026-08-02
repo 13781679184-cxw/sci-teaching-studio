@@ -16,6 +16,7 @@ workspace/
 .env
 .env.*
 !.env.example
+!.env.demo
 
 # OS / IDE
 .DS_Store
