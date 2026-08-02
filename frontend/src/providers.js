@@ -52,8 +52,20 @@ export async function testConn(payload) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     })
-    return await r.json()
+    const data = await r.json().catch(() => ({}))
+    if (!r.ok) {
+      return {
+        ok: false,
+        detail: data.detail || data.error || `HTTP ${r.status}：后端测试失败`,
+        models: [],
+      }
+    }
+    return data
   } catch (e) {
-    return { ok: false, detail: '请求失败：' + e.message, models: [] }
+    return {
+      ok: false,
+      detail: `请求失败（API 可能未启动）：${e.message || e}`,
+      models: [],
+    }
   }
 }

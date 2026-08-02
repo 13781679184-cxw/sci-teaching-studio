@@ -351,7 +351,12 @@ export default function App() {
     let cancelled = false
     ;(async () => {
       try {
-        setHealth(await api.health())
+        const h = await api.health()
+        if (cancelled) return
+        setHealth(h)
+        if (!h?.ok) {
+          setError('API 未就绪：后端 /health 异常。请确认本机 API（默认 :2025）已启动，并与前端代理连通。')
+        }
         await refreshProjects()
         const t = await api.listThemes()
         if (cancelled) return
@@ -368,7 +373,12 @@ export default function App() {
           setCreating(false)
         }
       } catch (e) {
-        if (!cancelled) setError(String(e.message || e))
+        if (!cancelled) {
+          setHealth(null)
+          setError(
+            `API 未连接：${e.message || e}。请先启动后端（uvicorn :2025），再刷新 http://127.0.0.1:5180/。`,
+          )
+        }
       }
     })()
     return () => {
@@ -647,12 +657,14 @@ export default function App() {
   }
 
   function draftCustomAccent(hex) {
-    const next = [hex, ...customAccents.filter((c) => c.toUpperCase() !== hex.toUpperCase())].slice(
+    const h = String(hex || '').trim()
+    if (!/^#[0-9A-Fa-f]{6}$/i.test(h)) return
+    const next = [h, ...customAccents.filter((c) => String(c).toUpperCase() !== h.toUpperCase())].slice(
       0,
       12,
     )
     setCustomAccents(next)
-    draftAccent(hex)
+    draftAccent(h)
   }
 
   function draftOptionalPages(next) {
@@ -819,6 +831,15 @@ export default function App() {
         </div>
       )}
 
+      {error && (
+        <div className="app-err-banner" role="alert">
+          <span className="app-err-banner-text">{error}</span>
+          <button type="button" className="btn sm ghost" onClick={() => setError('')}>
+            关闭
+          </button>
+        </div>
+      )}
+
       {providersOpen && <ProvidersModal onClose={() => setProvidersOpen(false)} />}
 
       <div className="main" style={{ gridTemplateColumns: `${railW}px minmax(0, 1fr)` }}>
@@ -895,7 +916,17 @@ export default function App() {
                     required
                     autoFocus
                     value={form.prompt}
-                    onChange={(e) => setForm({ ...form, prompt: e.target.value })}
+                    onChange={(e) => {
+                      const prompt = e.target.value
+                      setForm((f) => {
+                        const next = { ...f, prompt }
+                        // 有题目且代号仍空时，自动给一个合法代号，避免按钮灰掉却无提示
+                        if (prompt.trim() && !String(f.project_id || '').trim()) {
+                          next.project_id = `deck-${Date.now().toString(36)}`
+                        }
+                        return next
+                      })
+                    }}
                     placeholder="例如：小分子药物设计的关键技术 —— 给生物/药学本科生的 50 分钟课"
                   />
                   {pendingFiles.length > 0 && (
@@ -930,46 +961,61 @@ export default function App() {
                       className="btn primary"
                       type="submit"
                       disabled={busy || !form.prompt.trim() || !form.project_id.trim()}
+                      title={
+                        !form.prompt.trim()
+                          ? '请先填写要讲的题目'
+                          : !form.project_id.trim()
+                            ? '请填写下方项目代号'
+                            : undefined
+                      }
                     >
                       开始生成 →
                     </button>
                   </div>
+                  {form.prompt.trim() && !form.project_id.trim() ? (
+                    <p className="create-need">请填写下方「代号」后再开始（英文/数字/下划线）。</p>
+                  ) : null}
                 </div>
 
                 <div className="create-meta">
                   <label>
-                    代号
+                    代号 <em className="req-mark">必填</em>
                     <input
                       required
                       value={form.project_id}
                       onChange={(e) => setForm({ ...form, project_id: e.target.value })}
                       placeholder="my-deck-01"
+                      pattern="^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$"
+                      title="以字母或数字开头，仅英文、数字、_、-"
                     />
                   </label>
                   <label>
-                    受众
+                    受众 <em className="opt-mark">可选</em>
                     <input
                       value={form.audience}
                       onChange={(e) => setForm({ ...form, audience: e.target.value })}
+                      placeholder="如：研究生一年级"
                     />
                   </label>
                   <label>
-                    分钟
+                    分钟 <em className="opt-mark">可选</em>
                     <input
                       type="number"
+                      min={1}
                       value={form.target_minutes}
                       onChange={(e) => setForm({ ...form, target_minutes: e.target.value })}
                     />
                   </label>
                 </div>
+                <p className="create-meta-hint">
+                  代号用于文件夹名，须为英文/数字；受众与课时有默认值，可按需改。
+                </p>
 
                 {projectId && (
                   <button type="button" className="btn ghost create-cancel" onClick={cancelCreate}>
                     取消，回到当前项目
                   </button>
                 )}
-
-                {error && <div className="errbox">{error}</div>}
               </form>
             </div>
           ) : (
@@ -1155,8 +1201,6 @@ export default function App() {
               {logOpen && <pre className="log">{logText || '暂无日志'}</pre>}
             </div>
           )}
-
-          {error && <div className="errbox">{error}</div>}
               </div>
             </>
           )}

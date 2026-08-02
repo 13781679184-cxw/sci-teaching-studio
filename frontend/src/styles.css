@@ -77,6 +77,28 @@ body {
 }
 .demo-banner a:hover { text-decoration: underline; }
 
+.app-err-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  background: #fde8e6;
+  color: var(--err);
+  border-bottom: 1px solid color-mix(in srgb, var(--err) 28%, var(--line));
+  font-size: 0.88rem;
+  line-height: 1.45;
+  z-index: 20;
+}
+.app-err-banner-text {
+  flex: 1;
+  min-width: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.app-err-banner .btn {
+  flex-shrink: 0;
+}
+
 .stage.create-mode {
   display: flex;
   flex-direction: column;
@@ -176,6 +198,37 @@ body {
 }
 @media (max-width: 640px) {
   .create-meta { grid-template-columns: 1fr; }
+}
+.create-meta label {
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.create-meta label .req-mark {
+  font-style: normal;
+  font-weight: 600;
+  color: var(--err);
+  margin-left: 0.2rem;
+}
+.create-meta label .opt-mark {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--muted);
+  opacity: 0.85;
+  margin-left: 0.2rem;
+}
+.create-need {
+  margin: 0.55rem 0 0;
+  font-size: 0.78rem;
+  color: var(--err);
+  line-height: 1.4;
+}
+.create-meta-hint {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
 }
 .create-cancel {
   justify-self: center;
@@ -1865,9 +1918,35 @@ input:focus, textarea:focus, select:focus {
 .pv-cap.on i {
   background: var(--ok);
 }
+.pv-cap.bad {
+  color: var(--err);
+  border-color: color-mix(in srgb, var(--err) 40%, var(--line));
+  background: #fde8e6;
+}
+.pv-cap.bad i {
+  background: var(--err);
+}
+.pv-cap.warn {
+  color: #8a5a00;
+  border-color: color-mix(in srgb, #e0a800 45%, var(--line));
+  background: #fff8e6;
+}
+.pv-cap.warn i {
+  background: #e0a800;
+}
 .pv-cap b {
   font-weight: 600;
   margin-left: 0.15rem;
+}
+.pv-hint {
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #8a5a00;
+  background: #fff8e6;
+  border: 1px solid color-mix(in srgb, #e0a800 35%, var(--line));
+  border-radius: 6px;
+  padding: 0.5rem 0.65rem;
+  margin-bottom: 0.75rem;
 }
 .pv-sec {
   display: grid;
@@ -1937,6 +2016,9 @@ input:focus, textarea:focus, select:focus {
   padding: 0.5rem 0.65rem;
   border-radius: 6px;
   margin-bottom: 0.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 .pv-msg.ok {
   background: #eef7ef;

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 
 const KIND_META = [
   { key: 'title', label: '首页' },
@@ -204,6 +204,8 @@ export function ThemePicker({
   compact = false,
 }) {
   const colorRef = useRef(null)
+  const addAccentRef = useRef(onAddCustomAccent)
+  addAccentRef.current = onAddCustomAccent
   const themeList = themes || []
   const byKind = designsByKind && Object.keys(designsByKind).length ? designsByKind : FALLBACK_DESIGNS
   const currentAccent = accent || themeList.find((t) => t.id === value)?.accent || '#2F5D50'
@@ -225,6 +227,19 @@ export function ThemePicker({
     }
     return out
   }, [themeList, customAccents])
+
+  // Native `change` fires once when the OS color dialog closes; React `onChange` fires while dragging.
+  useEffect(() => {
+    const el = colorRef.current
+    if (!el) return undefined
+    const onCommit = () => {
+      const hex = String(el.value || '').trim()
+      if (!/^#[0-9A-Fa-f]{6}$/.test(hex)) return
+      addAccentRef.current?.(hex)
+    }
+    el.addEventListener('change', onCommit)
+    return () => el.removeEventListener('change', onCommit)
+  }, [])
 
   return (
     <div className={'theme-studio' + (compact ? ' compact' : '')}>
@@ -263,8 +278,8 @@ export function ThemePicker({
             className="accent-color-input"
             value={/^#[0-9A-Fa-f]{6}$/.test(currentAccent) ? currentAccent : '#2F5D50'}
             onChange={(e) => {
-              const hex = e.target.value
-              onAddCustomAccent?.(hex)
+              // Dragging fires many events — only update the live accent preview.
+              onChangeAccent?.(e.target.value)
             }}
             aria-label="自定义颜色"
           />

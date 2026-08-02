@@ -31,14 +31,29 @@ function emptyLit() {
   return o
 }
 
-function Cap({ on, label }) {
+/** status: ok | fail | unset | unverified */
+function Cap({ status, label }) {
+  const meta =
+    {
+      ok: { cls: ' on', text: '已连通' },
+      fail: { cls: ' bad', text: '未连接' },
+      unset: { cls: '', text: '未配置' },
+      unverified: { cls: ' warn', text: '未验证' },
+    }[status] || { cls: '', text: '未配置' }
   return (
-    <span className={'pv-cap' + (on ? ' on' : '')}>
+    <span className={'pv-cap' + meta.cls}>
       <i />
       {label}
-      <b>{on ? '可用' : '未配置'}</b>
+      <b>{meta.text}</b>
     </span>
   )
+}
+
+function capStatus(draftReady, verified) {
+  if (verified === true) return 'ok'
+  if (verified === false) return 'fail'
+  if (!draftReady) return 'unset'
+  return 'unverified'
 }
 
 export function ProvidersModal({ onClose }) {
@@ -50,6 +65,8 @@ export function ProvidersModal({ onClose }) {
   const [textModels, setTextModels] = useState([])
   const [manualModel, setManualModel] = useState(true)
   const [litMore, setLitMore] = useState(false)
+  /** Real connectivity after「测试连接」: true/false; null = not tested this session */
+  const [verified, setVerified] = useState({ text: null, image: null, literature: null })
 
   useEffect(() => {
     let alive = true
@@ -82,7 +99,14 @@ export function ProvidersModal({ onClose }) {
           return next
         })
       })
-      .catch(() => alive && setState(false))
+      .catch((e) => {
+        if (!alive) return
+        setState(false)
+        setMsg({
+          ok: false,
+          text: `API 未连接：${e.message || e}。请确认本机后端已启动（如 :2025），再刷新。`,
+        })
+      })
     return () => {
       alive = false
     }
@@ -96,26 +120,37 @@ export function ProvidersModal({ onClose }) {
     const d = { ...draft, text: { ...text, [k]: v } }
     setDraft(d)
     PV.saveDraft(d)
+    setVerified((prev) => ({ ...prev, text: null }))
   }
   function setImage(k, v) {
     const d = { ...draft, image: { ...image, [k]: v } }
     setDraft(d)
     PV.saveDraft(d)
+    setVerified((prev) => ({ ...prev, image: null }))
   }
   function setLit(k, v) {
     const d = { ...draft, literature: { ...literature, [k]: v } }
     setDraft(d)
     PV.saveDraft(d)
+    setVerified((prev) => ({ ...prev, literature: null }))
   }
 
-  const textReady = Boolean(text.api_key || state?.capabilities?.text)
-  const imageReady =
+  const textConfigured = Boolean(text.api_key || state?.text?.masked || state?.capabilities?.text)
+  const imageConfigured =
     image.provider === 'bailian' ||
+    image.provider === 'none' ||
     Boolean(image.api_key) ||
+    Boolean(state?.image?.masked) ||
     Boolean(state?.capabilities?.image)
-  const litReady =
+  const litConfigured =
     Boolean(state?.capabilities?.literature) ||
-    LIT_FIELDS.some((f) => Boolean(String(literature[f.key] || '').trim()))
+    LIT_FIELDS.some((f) => Boolean(String(literature[f.key] || '').trim())) ||
+    Boolean(state?.literature?.fields && Object.values(state.literature.fields).some((x) => x?.masked || x?.configured))
+
+  const textStatus = capStatus(textConfigured, verified.text)
+  const imageStatus =
+    image.provider === 'none' ? 'ok' : capStatus(imageConfigured, verified.image)
+  const litStatus = capStatus(litConfigured, verified.literature)
 
   async function test(kind) {
     setBusy(kind)
@@ -130,7 +165,15 @@ export function ProvidersModal({ onClose }) {
       setBusy('')
       setTextModels(r.models || [])
       setManualModel(!(r.models && r.models.length))
-      setMsg({ ok: r.ok, text: '文本模型 · ' + (r.detail || '') })
+      setVerified((v) => ({ ...v, text: Boolean(r.ok) }))
+      setMsg({
+        ok: r.ok,
+        text: r.ok
+          ? '文本模型 · ' + (r.detail || '已连通')
+          : '文本模型未连接 · ' +
+            (r.detail || '未知错误') +
+            '。请检查 Base URL / Key，或换一个可用模型后再测。',
+      })
     } else if (kind === 'literature') {
       const r = await PV.testConn({
         kind: 'literature',
@@ -138,7 +181,13 @@ export function ProvidersModal({ onClose }) {
         api_key: literature.SPRINGER_API_KEY || '',
       })
       setBusy('')
-      setMsg({ ok: r.ok, text: '文献 · ' + (r.detail || '') })
+      setVerified((v) => ({ ...v, literature: Boolean(r.ok) }))
+      setMsg({
+        ok: r.ok,
+        text: r.ok
+          ? '文献 · ' + (r.detail || '已连通')
+          : '文献 API 未连接 · ' + (r.detail || '未知错误') + '。可换 Key 或稍后重试。',
+      })
     } else {
       const r = await PV.testConn({
         kind: 'image',
@@ -148,7 +197,15 @@ export function ProvidersModal({ onClose }) {
         model: image.model,
       })
       setBusy('')
-      setMsg({ ok: r.ok, text: '图片 · ' + (r.detail || '') })
+      setVerified((v) => ({ ...v, image: Boolean(r.ok) }))
+      setMsg({
+        ok: r.ok,
+        text: r.ok
+          ? '图片 · ' + (r.detail || '已连通')
+          : '图片模型未连接 · ' +
+            (r.detail || '未知错误') +
+            '。请检查配置，或换模型 / 改用百炼 CLI。',
+      })
     }
   }
 
@@ -181,11 +238,23 @@ export function ProvidersModal({ onClose }) {
           </button>
         </div>
 
+        {msg && <div className={'pv-msg' + (msg.ok ? ' ok' : ' err')}>{msg.text}</div>}
+
         <div className="pv-caps">
-          <Cap on={textReady} label="文本模型" />
-          <Cap on={imageReady} label="AI 图片" />
-          <Cap on={litReady} label="文献 API" />
+          <Cap status={textStatus} label="文本模型" />
+          <Cap status={imageStatus} label="AI 图片" />
+          <Cap status={litStatus} label="文献 API" />
         </div>
+
+        {(textStatus === 'fail' || textStatus === 'unverified' || textStatus === 'unset') && (
+          <div className="pv-hint" role="status">
+            {textStatus === 'fail'
+              ? '文本模型未连接。请换一个可用模型，或核对 Base URL / API Key 后重新「测试连接」。'
+              : textStatus === 'unverified'
+                ? '已填配置但尚未验证连通。请点「测试连接 · 拉模型」；只有测试通过才显示绿色已连通。'
+                : '尚未配置文本模型。填写 Base URL、API Key 与模型名后测试连接。'}
+          </div>
+        )}
 
         <section className="pv-sec">
           <div className="pv-sec-h">
@@ -374,8 +443,6 @@ export function ProvidersModal({ onClose }) {
             </div>
           )}
         </section>
-
-        {msg && <div className={'pv-msg' + (msg.ok ? ' ok' : ' err')}>{msg.text}</div>}
 
         <div className="pv-foot">
           <button type="button" className="btn primary" disabled={saving} onClick={saveLocal}>

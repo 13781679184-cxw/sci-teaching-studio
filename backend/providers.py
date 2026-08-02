@@ -446,10 +446,15 @@ def test_connection(
 ) -> dict[str, Any]:
     kind = (kind or "").strip().lower()
     provider = (provider or "").strip().lower()
+    saved = resolve_local()
 
     if kind == "text":
+        st = saved.get("text") or {}
+        api_key = (api_key or "").strip() or str(st.get("api_key") or "").strip()
+        base_url = (base_url or "").strip() or str(st.get("base_url") or "").strip()
+        model = (model or "").strip() or str(st.get("model") or "").strip()
         if not api_key:
-            return {"ok": False, "detail": "未填 API Key", "models": []}
+            return {"ok": False, "detail": "未填 API Key（也无本机已保存 Key）", "models": []}
         try:
             models = list_models(base_url, api_key)
             return {
@@ -488,6 +493,11 @@ def test_connection(
             }
 
     if kind == "image":
+        sim = saved.get("image") or {}
+        provider = provider or str(sim.get("provider") or "").strip().lower()
+        api_key = (api_key or "").strip() or str(sim.get("api_key") or "").strip()
+        base_url = (base_url or "").strip() or str(sim.get("base_url") or "").strip()
+        model = (model or "").strip() or str(sim.get("model") or "").strip()
         if provider == "bailian":
             return {
                 "ok": True,
@@ -496,7 +506,7 @@ def test_connection(
         if provider in ("", "none"):
             return {"ok": False, "detail": "未选择图片 provider"}
         if not api_key:
-            return {"ok": False, "detail": "未填 API Key"}
+            return {"ok": False, "detail": "未填 API Key（也无本机已保存 Key）"}
         base = normalize_openai_base(base_url)
         # Prefer /models; else accept configured
         try:
@@ -523,7 +533,8 @@ def test_connection(
         else:
             bits.append(f"OpenAlex 探测失败 HTTP {code}")
 
-        springer_key = (api_key or "").strip()
+        lit = saved.get("literature") or {}
+        springer_key = (api_key or "").strip() or str(lit.get("SPRINGER_API_KEY") or "").strip()
         if springer_key and provider in ("", "springer", "literature"):
             sc, _ = _http_json(
                 "GET",
