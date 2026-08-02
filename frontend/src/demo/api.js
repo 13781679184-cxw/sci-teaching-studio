@@ -36,19 +36,26 @@ function fixSlides(slidesPack) {
 async function ensurePack() {
   if (pack) return pack
   if (!packPromise) {
-    packPromise = fetch(`${BASE}showcase/my-ppt/pack.json`).then(async (r) => {
-      if (!r.ok) throw new Error(`showcase pack ${r.status}`)
-      const raw = await r.json()
-      pack = {
-        ...raw,
-        figures: fixFigures(raw.figures || {}),
-        slides: fixSlides(raw.slides || {}),
-      }
-      themeState = { ...(pack.theme || {}) }
-      outline = structuredClone(pack.outline)
-      lecture = pack.lecture || ''
-      return pack
-    })
+    // Bust GH Pages / browser cache so lecture updates show up immediately.
+    const bust = import.meta.env.VITE_DEMO_BUILD || Date.now()
+    packPromise = fetch(`${BASE}showcase/my-ppt/pack.json?v=${bust}`, { cache: 'no-store' })
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`showcase pack ${r.status}`)
+        const raw = await r.json()
+        pack = {
+          ...raw,
+          figures: fixFigures(raw.figures || {}),
+          slides: fixSlides(raw.slides || {}),
+        }
+        themeState = { ...(pack.theme || {}) }
+        outline = structuredClone(pack.outline)
+        lecture = pack.lecture || ''
+        return pack
+      })
+      .catch((err) => {
+        packPromise = null
+        throw err
+      })
   }
   return packPromise
 }
@@ -181,8 +188,11 @@ export const demoApi = {
   }),
   cancelJob: async () => ({ ok: true }),
   listJobs: async () => ({ jobs: [] }),
-  downloadUrl: () => '#',
-  packDownloadUrl: () => '#',
+  downloadUrl: (_id, path) => {
+    const rel = String(path || '').replace(/^\/+/, '')
+    return assetUrl(`showcase/my-ppt/files/${rel}`)
+  },
+  packDownloadUrl: () => assetUrl('showcase/my-ppt/files/deck/final.pptx'),
   copilotOutline: async () => ({
     ok: true,
     summary: '展示站为只读快照，副驾未连接。',

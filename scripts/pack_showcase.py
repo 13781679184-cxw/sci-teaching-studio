@@ -267,6 +267,10 @@ def main() -> None:
     lp = PROJECT / "lecture_script.md"
     if lp.is_file():
         lecture = lp.read_text(encoding="utf-8")
+        copy_file("lecture_script.md")
+
+    # Allow「下载 PPT / 讲稿」on the static demo (demoApi maps artifact paths here).
+    copy_file("deck/final.pptx")
 
     qa = {"project_id": "my-ppt", "status": "pass", "summary": "静态展示快照", "checks": []}
     qp = PROJECT / "qa_report.json"
@@ -278,6 +282,7 @@ def main() -> None:
 
     pack = {
         "project_id": "my-ppt",
+        "packed_at": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "detail": detail,
         "theme": theme_state,
         "outline": outline,

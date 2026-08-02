@@ -7,6 +7,11 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     // GitHub Pages project site
     base: demo ? '/sci-teaching-studio/' : '/',
+    define: demo
+      ? {
+          'import.meta.env.VITE_DEMO_BUILD': JSON.stringify(String(Date.now())),
+        }
+      : undefined,
     server: {
       host: '0.0.0.0',
       port: 5180,
