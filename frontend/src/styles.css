@@ -54,29 +54,45 @@ body {
 .brand span { color: var(--accent); }
 
 .demo-banner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.65rem;
-  padding: 0.45rem 1.1rem;
+  padding: 0.5rem 1.1rem;
   background: linear-gradient(90deg, #eef5f2, #f7faf8);
   border-bottom: 1px solid var(--line);
   font-size: 0.82rem;
   color: var(--muted);
   flex-shrink: 0;
 }
-.demo-banner strong {
+.demo-banner-title {
+  display: block;
+  margin: 0 0 0.2rem;
   color: var(--accent);
   font-weight: 600;
+  font-size: 0.82rem;
+}
+.demo-banner-text {
+  margin: 0;
+  line-height: 1.5;
+  max-width: 72rem;
 }
 
 .demo-rail-repos {
   margin: 0;
-  padding: 0 0.15rem 0.35rem;
+  padding: 0 0.15rem 0.4rem;
   font-size: 0.72rem;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--muted);
   border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.demo-rail-repo-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.15rem 0.25rem;
+}
+.demo-rail-repo-line span {
+  flex-shrink: 0;
 }
 .demo-rail-repos a {
   color: var(--accent);

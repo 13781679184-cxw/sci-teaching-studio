@@ -835,10 +835,10 @@ export default function App() {
 
       {IS_DEMO && (
         <div className="demo-banner" role="status">
-          <strong>在线试用</strong>
-          <span>
+          <strong className="demo-banner-title">在线试用</strong>
+          <p className="demo-banner-text">
             下面是一门真实课的快照，界面和本机 Studio 一样；配图、页预览都是当时导出的。检索和生图在这里不会真跑，方便你先逛流程。
-          </span>
+          </p>
         </div>
       )}
 
@@ -868,30 +868,20 @@ export default function App() {
               setRailDragging(true)
             }}
           />
-          {IS_DEMO ? (
-            <p className="demo-rail-repos" aria-label="开源仓库">
-              课件生成靠开源 Skill{' '}
+          <div className="demo-rail-repos" aria-label="开源仓库">
+            <div className="demo-rail-repo-line">
+              <span>内核 Skill：</span>
               <a href={GITHUB_DECK_SKILL} target="_blank" rel="noreferrer">
                 sci-teaching-deck
               </a>
-              ；这个网页的完整源码在{' '}
+            </div>
+            <div className="demo-rail-repo-line">
+              <span>完整源码：</span>
               <a href={GITHUB_STUDIO_WEB} target="_blank" rel="noreferrer">
                 sci-teaching-studio
               </a>
-              。
-            </p>
-          ) : (
-            <p className="demo-rail-repos" aria-label="开源仓库">
-              Skill{' '}
-              <a href={GITHUB_DECK_SKILL} target="_blank" rel="noreferrer">
-                sci-teaching-deck
-              </a>
-              {' · '}
-              <a href={GITHUB_STUDIO_WEB} target="_blank" rel="noreferrer">
-                sci-teaching-studio
-              </a>
-            </p>
-          )}
+            </div>
+          </div>
           <div className="rail-head">
             <span>项目</span>
             <button
