@@ -11,8 +11,8 @@
 **文档**
 
 - 自己从 GitHub 装起来跑：[`RUN.md`](RUN.md)（含：仓库里没有什么、为何只下载不够）
-- 约定时段给同事用同一网页：[`SHARE-HOURS.md`](SHARE-HOURS.md)（对方不必 clone）
-- **简历 / 公开展示站**（静态演示，无真实后端）：见下方「演示站」
+- 临时公网分享本机 Studio：[`SHARE-HOURS.md`](SHARE-HOURS.md)（访客不必 clone）
+- **在线演示站**（GitHub Pages，静态快照、无真实后端）：见下方「演示站」
 
 ### 演示站（GitHub Pages）
 

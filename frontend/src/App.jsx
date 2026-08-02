@@ -7,7 +7,15 @@ import { SlidesPreview } from './SlidesPreview.jsx'
 import { StudioCopilot } from './StudioCopilot.jsx'
 import { ProvidersModal } from './ProvidersModal.jsx'
 import { ThemePicker } from './ThemePicker.jsx'
-import { IS_DEMO, DEMO_PROJECT_ID, DEMO_COURSE_TITLE, DEMO_AUDIENCE, DEMO_MINUTES } from './demo/mode.js'
+import {
+  IS_DEMO,
+  DEMO_PROJECT_ID,
+  DEMO_COURSE_TITLE,
+  DEMO_AUDIENCE,
+  DEMO_MINUTES,
+  GITHUB_DECK_SKILL,
+  GITHUB_STUDIO_WEB,
+} from './demo/mode.js'
 import { resetDemoWalkthrough, unlockDemoWalkthrough } from './demo/api.js'
 
 const GATES = [
@@ -827,17 +835,10 @@ export default function App() {
 
       {IS_DEMO && (
         <div className="demo-banner" role="status">
-          <strong>Sci Teaching Studio</strong>
+          <strong>在线试用</strong>
           <span>
-            公开展示站 · 固定真实项目快照（界面与本机一致；配图/预览为真实导出图）。检索与生图为只读演示。
+            下面是一门真实课的快照，界面和本机 Studio 一样；配图、页预览都是当时导出的。检索和生图在这里不会真跑，方便你先逛流程。
           </span>
-          <a
-            href="https://github.com/13781679184-cxw/sci-teaching-studio"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
         </div>
       )}
 
@@ -867,6 +868,30 @@ export default function App() {
               setRailDragging(true)
             }}
           />
+          {IS_DEMO ? (
+            <p className="demo-rail-repos" aria-label="开源仓库">
+              课件生成靠开源 Skill{' '}
+              <a href={GITHUB_DECK_SKILL} target="_blank" rel="noreferrer">
+                sci-teaching-deck
+              </a>
+              ；这个网页的完整源码在{' '}
+              <a href={GITHUB_STUDIO_WEB} target="_blank" rel="noreferrer">
+                sci-teaching-studio
+              </a>
+              。
+            </p>
+          ) : (
+            <p className="demo-rail-repos" aria-label="开源仓库">
+              Skill{' '}
+              <a href={GITHUB_DECK_SKILL} target="_blank" rel="noreferrer">
+                sci-teaching-deck
+              </a>
+              {' · '}
+              <a href={GITHUB_STUDIO_WEB} target="_blank" rel="noreferrer">
+                sci-teaching-studio
+              </a>
+            </p>
+          )}
           <div className="rail-head">
             <span>项目</span>
             <button
@@ -921,7 +946,7 @@ export default function App() {
                 <h1>想讲点什么？</h1>
                 <p className="lead">
                   {IS_DEMO
-                    ? `公开展示站目前只演示课程「${DEMO_COURSE_TITLE}」。题目与代号已填好：点「开始生成」后按版式 → 大纲 → 文献 → 配图逐步走，各步加载已有成品快照。`
+                    ? `这页只演示一门课：《${DEMO_COURSE_TITLE}》。题目和代号已填好——点「开始生成」，再顺着顶栏走版式、大纲、文献、配图，每一步都会载入事先做好的成品。`
                     : '写下一题或一段说明，会先生成大纲，再走文献、配图与讲稿。'}
                 </p>
 
@@ -993,7 +1018,9 @@ export default function App() {
 
                 <div className="create-meta">
                   <label>
-                    代号 <em className="req-mark">必填</em>
+                    <span className="create-meta-label">
+                      代号 <em className="req-mark">必填</em>
+                    </span>
                     <input
                       required
                       value={form.project_id}
@@ -1004,7 +1031,9 @@ export default function App() {
                     />
                   </label>
                   <label>
-                    受众 <em className="opt-mark">可选</em>
+                    <span className="create-meta-label">
+                      受众 <em className="opt-mark">可选</em>
+                    </span>
                     <input
                       value={form.audience}
                       onChange={(e) => setForm({ ...form, audience: e.target.value })}
@@ -1012,7 +1041,9 @@ export default function App() {
                     />
                   </label>
                   <label>
-                    分钟 <em className="opt-mark">可选</em>
+                    <span className="create-meta-label">
+                      分钟 <em className="opt-mark">可选</em>
+                    </span>
                     <input
                       type="number"
                       min={1}
