@@ -1,11 +1,34 @@
 ---
-description: Sci Teaching Studio web UI — clean workbench principles
+description: Sci Teaching Studio web UI — clean workbench + keep GitHub Pages in sync
 alwaysApply: true
 ---
 
 # Studio Web UI
 
 When changing `sci-teaching-studio/frontend`, optimize the product without waiting for annotated screenshots.
+
+## Two surfaces, one repo (keep in sync)
+
+| Surface | URL | How it updates |
+|--------|-----|----------------|
+| Local Studio | `http://127.0.0.1:5180/` | Vite/dev — instant after save |
+| Public demo | `https://13781679184-cxw.github.io/sci-teaching-studio/` | Same `frontend/` on `main` → GitHub Actions Pages deploy |
+
+They are **not** separate products. Local edits do **not** appear on Pages until **commit + push** to `sci-teaching-studio` `main` (workflow `pages-demo.yml`).
+
+### Default sync rule
+
+After any change that affects Studio UI/demo behavior (`frontend/**`, showcase pack, demo mode, related workflow):
+
+1. Finish the fix locally.
+2. **Commit and push** to `origin/main` in `sci-teaching-studio` (unless secrets/workspace junk).
+3. Watch/confirm Pages deploy succeeds; tell the user the public URL.
+
+**Do this by default** — do not wait for “推送到公开站”.
+
+**Only skip push** when the user explicitly says e.g. 只改本机 / 先别推 / 不要同步公开演示.
+
+Backend-only changes that cannot run on static Pages still push if they live in the same repo and the user expects GitHub updated; say clearly what Pages cannot execute.
 
 ## Principles (from product feedback)
 
@@ -21,3 +44,4 @@ When changing `sci-teaching-studio/frontend`, optimize the product without waiti
 - Scan the first viewport: can any label/button be deleted without losing a real decision?
 - Is the primary path still「看内容 → 做事 → 下一步」?
 - Did you reintroduce status text the user already asked to remove?
+- Did you **push** so the public demo matches, unless the user said local-only?
