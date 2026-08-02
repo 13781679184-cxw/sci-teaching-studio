@@ -24,9 +24,11 @@ export function SourcesTable({
   projectId,
   sources,
   counts,
+  outlineConfirmed,
   onDecide,
   onRun,
   onNext,
+  onGoOutline,
   onSourcesChange,
   busy,
 }) {
@@ -143,16 +145,28 @@ export function SourcesTable({
     </form>
   )
 
+  const gate1Block = !outlineConfirmed
+
   if (!sources) {
     return (
       <div>
+        {gate1Block && (
+          <p className="errbox sources-gate-hint" role="status">
+            大纲仍是草稿，须在大纲页点「下一步」确认（Gate 1）后才能检索。
+            {onGoOutline ? (
+              <button type="button" className="btn sm" disabled={busy} onClick={onGoOutline}>
+                去大纲确认
+              </button>
+            ) : null}
+          </p>
+        )}
         <div className="toolbar">
           <div className="toolbar-meta">尚无文献</div>
           <div className="toolbar-actions">
             <button
               type="button"
               className="btn primary"
-              disabled={busy}
+              disabled={busy || gate1Block}
               onClick={() => onRun('retrieve_screen')}
               title="检索文献后立刻 AI 初筛"
             >
@@ -167,6 +181,16 @@ export function SourcesTable({
 
   return (
     <div>
+      {gate1Block && (
+        <p className="errbox sources-gate-hint" role="status">
+          大纲仍是草稿，须在大纲页点「下一步」确认（Gate 1）后才能检索。
+          {onGoOutline ? (
+            <button type="button" className="btn sm" disabled={busy} onClick={onGoOutline}>
+              去大纲确认
+            </button>
+          ) : null}
+        </p>
+      )}
       <div className="toolbar">
         <div className="toolbar-meta">
           文献 · <strong>{counts?.selected ?? 0}</strong> / {counts?.total ?? 0}
@@ -177,7 +201,7 @@ export function SourcesTable({
             <button
               type="button"
               className="btn"
-              disabled={busy}
+              disabled={busy || gate1Block}
               onClick={() => onRun('retrieve_screen')}
               title="重新检索并 AI 初筛（会保留你手动添加的文献）"
             >

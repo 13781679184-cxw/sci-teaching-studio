@@ -208,6 +208,16 @@ def start_job(project_id: str, step: str, extra: dict[str, Any] | None = None) -
 
     import projects as P
 
+    if step in {"retrieve", "retrieve_screen", "screen"}:
+        try:
+            outline = P.load_json(project_id, "source/outline.json")
+        except FileNotFoundError as exc:
+            raise ValueError("缺少 outline.json，请先生成大纲") from exc
+        if outline.get("status") != "user_confirmed":
+            raise ValueError(
+                "大纲尚未确认（Gate 1）。请在大纲页检查内容后点「下一步」确认，再检索文献。"
+            )
+
     snap_note = ""
     if P.should_snapshot_before_step(step):
         try:

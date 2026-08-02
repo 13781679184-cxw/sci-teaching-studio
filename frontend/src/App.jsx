@@ -492,6 +492,13 @@ export default function App() {
 
   async function runStep(step, extra = {}) {
     if (!projectId) return
+    const needsGate1 = step === 'retrieve' || step === 'retrieve_screen' || step === 'screen'
+    if (needsGate1 && outline?.status !== 'user_confirmed') {
+      setError(
+        '大纲尚未确认（Gate 1）。请打开顶栏「大纲」，检查内容后点「下一步」确认，再检索文献。（编辑或回退上版后需重新确认）',
+      )
+      return
+    }
     setBusy(true)
     setError('')
     setJob(null)
@@ -1116,9 +1123,11 @@ export default function App() {
               projectId={projectId}
               sources={sourcesPack?.sources}
               counts={sourcesPack?.counts}
+              outlineConfirmed={outline?.status === 'user_confirmed'}
               onDecide={decideSource}
               onRun={runStep}
               onNext={confirmCurrent}
+              onGoOutline={() => setScreen('outline')}
               onSourcesChange={async () => {
                 try {
                   setSourcesPack(await api.getSources(projectId))
