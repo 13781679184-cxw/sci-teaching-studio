@@ -54,24 +54,20 @@ body {
 .brand span { color: var(--accent); }
 
 .demo-banner {
-  padding: 0.5rem 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  padding: 0.45rem 1.1rem;
   background: linear-gradient(90deg, #eef5f2, #f7faf8);
   border-bottom: 1px solid var(--line);
   font-size: 0.82rem;
   color: var(--muted);
   flex-shrink: 0;
 }
-.demo-banner-title {
-  display: block;
-  margin: 0 0 0.2rem;
+.demo-banner strong {
   color: var(--accent);
   font-weight: 600;
-  font-size: 0.82rem;
-}
-.demo-banner-text {
-  margin: 0;
-  line-height: 1.5;
-  max-width: 72rem;
 }
 
 .demo-rail-repos {

@@ -835,10 +835,10 @@ export default function App() {
 
       {IS_DEMO && (
         <div className="demo-banner" role="status">
-          <strong className="demo-banner-title">在线试用</strong>
-          <p className="demo-banner-text">
-            下面是一门真实课的快照，界面和本机 Studio 一样；配图、页预览都是当时导出的。检索和生图在这里不会真跑，方便你先逛流程。
-          </p>
+          <strong>公开展示站</strong>
+          <span>
+            · 固定真实项目快照（界面与本机一致；配图/预览为真实导出图）。检索与生图为只读演示。
+          </span>
         </div>
       )}
 
