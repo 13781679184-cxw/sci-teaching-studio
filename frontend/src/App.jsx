@@ -7,7 +7,7 @@ import { SlidesPreview } from './SlidesPreview.jsx'
 import { StudioCopilot } from './StudioCopilot.jsx'
 import { ProvidersModal } from './ProvidersModal.jsx'
 import { ThemePicker } from './ThemePicker.jsx'
-import { IS_DEMO, DEMO_PROJECT_ID } from './demo/mode.js'
+import { IS_DEMO, DEMO_PROJECT_ID, DEMO_COURSE_TITLE, DEMO_AUDIENCE, DEMO_MINUTES } from './demo/mode.js'
 
 const GATES = [
   { id: 'input', label: '输入', gate: null },
@@ -147,7 +147,15 @@ export default function App() {
   const [job, setJob] = useState(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [creating, setCreating] = useState(false)
+  const [creating, setCreating] = useState(() => IS_DEMO)
+  const [form, setForm] = useState(() => ({
+    project_id: IS_DEMO ? DEMO_PROJECT_ID : '',
+    prompt: IS_DEMO ? DEMO_COURSE_TITLE : '',
+    audience: IS_DEMO ? DEMO_AUDIENCE : '研究生一年级',
+    target_minutes: IS_DEMO ? DEMO_MINUTES : 50,
+    dissemination: 'internal_class',
+    theme_id: 'green',
+  }))
   const [logOpen, setLogOpen] = useState(false)
   const [providersOpen, setProvidersOpen] = useState(false)
   const [scriptRev, setScriptRev] = useState(0)
@@ -156,14 +164,6 @@ export default function App() {
   const [railW, setRailW] = useState(loadRailWidth)
   const [railDragging, setRailDragging] = useState(false)
   const fileInputRef = useRef(null)
-  const [form, setForm] = useState({
-    project_id: '',
-    prompt: '',
-    audience: '研究生一年级',
-    target_minutes: 50,
-    dissemination: 'internal_class',
-    theme_id: 'green',
-  })
   const [themes, setThemes] = useState([])
   const [designsByKind, setDesignsByKind] = useState({})
   const [themeId, setThemeId] = useState('green')
@@ -367,10 +367,9 @@ export default function App() {
           setForm((f) => ({ ...f, theme_id: f.theme_id || t.default }))
         }
         if (IS_DEMO) {
-          await loadProject(DEMO_PROJECT_ID, { resetScreen: true })
-          if (cancelled) return
-          setScreen('complete')
-          setCreating(false)
+          // Public demo: land on create home (prefilled), not the finished deck.
+          setCreating(true)
+          setScreen('input')
         }
       } catch (e) {
         if (!cancelled) {
@@ -587,10 +586,17 @@ export default function App() {
         setPendingFiles([])
       }
       await refreshProjects()
-      await loadProject(id, { resetScreen: false })
+      // Demo always opens the packed showcase course after「开始生成」
+      const loadId = IS_DEMO ? DEMO_PROJECT_ID : id
+      await loadProject(loadId, { resetScreen: false })
       setCreating(false)
-      setPendingOutlineGen(true)
-      setScreen('theme')
+      if (IS_DEMO) {
+        setPendingOutlineGen(false)
+        setScreen('complete')
+      } else {
+        setPendingOutlineGen(true)
+        setScreen('theme')
+      }
       setBusy(false)
     } catch (err) {
       setBusy(false)
@@ -909,7 +915,11 @@ export default function App() {
             <div className="create-hero">
               <form className="create-hero-inner" onSubmit={createProject}>
                 <h1>想讲点什么？</h1>
-                <p className="lead">写下一题或一段说明，会先生成大纲，再走文献、配图与讲稿。</p>
+                <p className="lead">
+                  {IS_DEMO
+                    ? `公开展示站目前只演示课程「${DEMO_COURSE_TITLE}」。题目与代号已填好，直接点「开始生成」即可浏览完整成品。`
+                    : '写下一题或一段说明，会先生成大纲，再走文献、配图与讲稿。'}
+                </p>
 
                 <div className="create-card">
                   <textarea
