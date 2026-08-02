@@ -625,6 +625,7 @@ export default function App() {
           detail?.artifacts?.['deck/final.pptx'] ||
           detail?.artifacts?.['deck/draft.pptx'],
       )
+      // Always advance to outline after theme confirm (写入或重渲都是手段，下一步是大纲).
       if (pendingOutlineGen) {
         setPendingOutlineGen(false)
         setScreen('outline')
@@ -634,14 +635,14 @@ export default function App() {
         setLogOpen(true)
         return
       }
+      setScreen('outline')
       if (hasPlan || hasPpt) {
         await runStep('rerender_export', {
-          pptx: hasPpt ? 'draft-with-images.pptx' : 'draft-with-images.pptx',
+          pptx: 'draft-with-images.pptx',
         })
         return
       }
       setBusy(false)
-      setScreen('outline')
     } catch (err) {
       setBusy(false)
       setError(String(err.message || err))
@@ -1042,7 +1043,7 @@ export default function App() {
             <div className="theme-step">
               <div className="toolbar">
                 <div className="toolbar-meta">
-                  版式 · 先选设计，点<strong>确定</strong>后写入或重渲
+                  版式 · 先选设计，点<strong>确定</strong>后写入或重渲，并进入大纲
                 </div>
                 <div className="toolbar-actions">
                   <button
@@ -1051,7 +1052,7 @@ export default function App() {
                     disabled={busy}
                     onClick={confirmThemeAndContinue}
                   >
-                    {pendingOutlineGen ? '确定，生成大纲 →' : '确定并应用'}
+                    {pendingOutlineGen ? '确定，生成大纲 →' : '确定并应用 →'}
                   </button>
                 </div>
               </div>
@@ -1070,8 +1071,8 @@ export default function App() {
                 onChangeOptional={draftOptionalPages}
               />
               <p className="theme-hint">
-                点选只改预览选中态；点「确定并应用」才会写入或重渲
-                {detail?.artifacts?.['source/slide_plan.json'] ? '（已有幻灯片时重渲 PPT）' : '（写入版式配置）'}
+                点选只改预览选中态；点「确定并应用 →」会写入或重渲，并进入大纲页
+                {detail?.artifacts?.['source/slide_plan.json'] ? '（已有幻灯片时后台重渲）' : ''}
                 。
               </p>
             </div>
