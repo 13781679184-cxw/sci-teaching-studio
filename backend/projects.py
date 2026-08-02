@@ -727,10 +727,15 @@ _DESTRUCTIVE_VISUAL_STEPS = frozenset(
         "run_default_pipeline",
     }
 )
+_OUTLINE_SNAPSHOT_STEPS = frozenset({"generate_outline"})
 
 
 def _snapshots_root(project_id: str) -> Path:
     return project_dir(project_id) / "source" / "_snapshots"
+
+
+def _outline_snapshots_root(project_id: str) -> Path:
+    return project_dir(project_id) / "source" / "_outline_snapshots"
 
 
 def _copy_if_exists(src: Path, dst: Path) -> bool:
@@ -862,6 +867,75 @@ def restore_visual_snapshot(project_id: str, snapshot_id: str | None = None) -> 
 
 def should_snapshot_before_step(step: str) -> bool:
     return step in _DESTRUCTIVE_VISUAL_STEPS
+
+
+def snapshot_outline_state(project_id: str, *, reason: str = "") -> dict[str, Any] | None:
+    """Snapshot source/outline.json before overwrite / regenerate."""
+    root = project_dir(project_id)
+    outline_path = root / "source" / "outline.json"
+    if not outline_path.is_file():
+        return None
+
+    stamp = utc_now_iso().replace(":", "").replace("-", "")
+    snap = _outline_snapshots_root(project_id) / stamp
+    snap.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(outline_path, snap / "outline.json")
+    meta = {
+        "id": stamp,
+        "created_at": utc_now_iso(),
+        "reason": reason,
+        "has_outline": True,
+    }
+    (snap / "manifest.json").write_text(
+        json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    snaps = sorted(
+        [p for p in _outline_snapshots_root(project_id).iterdir() if p.is_dir()],
+        key=lambda p: p.name,
+        reverse=True,
+    )
+    for old in snaps[_SNAPSHOT_KEEP:]:
+        shutil.rmtree(old, ignore_errors=True)
+    return meta
+
+
+def list_outline_snapshots(project_id: str) -> list[dict[str, Any]]:
+    root = _outline_snapshots_root(project_id)
+    if not root.is_dir():
+        return []
+    out: list[dict[str, Any]] = []
+    for p in sorted([x for x in root.iterdir() if x.is_dir()], key=lambda x: x.name, reverse=True):
+        man = p / "manifest.json"
+        if man.is_file():
+            try:
+                out.append(json.loads(man.read_text(encoding="utf-8")))
+                continue
+            except json.JSONDecodeError:
+                pass
+        out.append({"id": p.name, "created_at": None, "reason": ""})
+    return out
+
+
+def restore_outline_snapshot(project_id: str, snapshot_id: str | None = None) -> dict[str, Any]:
+    """Restore latest (or named) outline snapshot. Snapshots current first."""
+    snaps = list_outline_snapshots(project_id)
+    if not snaps:
+        raise FileNotFoundError("no outline snapshots")
+    target_id = snapshot_id or snaps[0]["id"]
+    snap = _outline_snapshots_root(project_id) / target_id
+    src = snap / "outline.json"
+    if not src.is_file():
+        raise FileNotFoundError(target_id)
+
+    snapshot_outline_state(project_id, reason=f"pre-restore-of-{target_id}")
+    dst = project_dir(project_id) / "source" / "outline.json"
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src, dst)
+    return {"restored_from": target_id, "items": ["source/outline.json"], "count": 1}
+
+
+def should_snapshot_outline_before_step(step: str) -> bool:
+    return step in _OUTLINE_SNAPSHOT_STEPS
 
 
 _SAFE_MATERIAL_NAME = re.compile(r"^[\w.\- \u4e00-\u9fff()（）【】\[\]]{1,180}$")

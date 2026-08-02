@@ -96,6 +96,14 @@ const liveApi = {
       }`,
       { method: 'POST', body: '{}' },
     ),
+  listOutlineSnapshots: (id) => req(`/projects/${id}/outline-snapshots`),
+  restoreOutlineSnapshot: (id, snapshotId) =>
+    req(
+      `/projects/${id}/outline-snapshots/restore${
+        snapshotId ? `?snapshot_id=${encodeURIComponent(snapshotId)}` : ''
+      }`,
+      { method: 'POST', body: '{}' },
+    ),
   getSlides: (id) => req(`/projects/${id}/slides`),
   getQa: (id) => req(`/projects/${id}/qa`),
   getLectureScript: (id) => req(`/projects/${id}/lecture-script`),

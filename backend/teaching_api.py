@@ -858,6 +858,25 @@ def restore_visual_snapshot(project_id: str, snapshot_id: str | None = None):
         raise HTTPException(404, str(exc)) from None
     return {"ok": True, **result}
 
+@app.get("/projects/{project_id}/outline-snapshots")
+def list_outline_snapshots(project_id: str):
+    try:
+        P.project_dir(project_id)
+    except FileNotFoundError:
+        raise HTTPException(404, "not found") from None
+    snaps = P.list_outline_snapshots(project_id)
+    return {"project_id": project_id, "snapshots": snaps, "count": len(snaps)}
+
+
+@app.post("/projects/{project_id}/outline-snapshots/restore")
+def restore_outline_snapshot(project_id: str, snapshot_id: str | None = None):
+    try:
+        P.project_dir(project_id)
+        result = P.restore_outline_snapshot(project_id, snapshot_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(404, str(exc)) from None
+    return {"ok": True, **result}
+
 @app.put("/projects/{project_id}/outline")
 async def put_outline(project_id: str, body: dict):
     try:
@@ -872,6 +891,10 @@ async def put_outline(project_id: str, body: dict):
     body["project_id"] = project_id
     # UI edits always return outline to draft; Gate 1 confirm sets user_confirmed.
     body["status"] = "draft"
+    try:
+        P.snapshot_outline_state(project_id, reason="before:save")
+    except Exception:
+        pass
     P.save_json(project_id, "source/outline.json", body)
     return {"ok": True, "status": body.get("status")}
 
@@ -886,6 +909,10 @@ def copilot_outline(project_id: str, body: CopilotOutlineBody):
     try:
         import copilot as C
 
+        try:
+            P.snapshot_outline_state(project_id, reason="before:copilot")
+        except Exception:
+            pass
         return C.edit_outline_with_copilot(project_id, body.message)
     except FileNotFoundError:
         raise HTTPException(404, "outline.json missing") from None

@@ -237,6 +237,8 @@ export const demoApi = {
   },
   listVisualSnapshots: async () => ({ snapshots: [] }),
   restoreVisualSnapshot: async () => ({ restored_from: null, count: 0 }),
+  listOutlineSnapshots: async () => ({ snapshots: [] }),
+  restoreOutlineSnapshot: async () => ({ restored_from: null, count: 0 }),
   getSlides: async () => {
     const p = await ensurePack()
     if (!reveal.slides) {

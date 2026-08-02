@@ -216,6 +216,13 @@ def start_job(project_id: str, step: str, extra: dict[str, Any] | None = None) -
                 snap_note = f"[studio] snapshot {meta['id']} before {step}\n"
         except Exception as exc:  # noqa: BLE001
             snap_note = f"[studio] snapshot failed: {exc}\n"
+    if P.should_snapshot_outline_before_step(step):
+        try:
+            meta = P.snapshot_outline_state(project_id, reason=f"before:{step}")
+            if meta:
+                snap_note += f"[studio] outline snapshot {meta['id']} before {step}\n"
+        except Exception as exc:  # noqa: BLE001
+            snap_note += f"[studio] outline snapshot failed: {exc}\n"
 
     job_id = uuid.uuid4().hex[:12]
     cmds = _resolve_cmds(step, project_id, extra)

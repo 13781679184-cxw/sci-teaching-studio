@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { api } from './api.js'
 
 const INTENTS = [
   { value: 'overview', label: '总览' },
@@ -86,6 +87,44 @@ function TreeActions({ onAdd, addLabel, onDelete, canDelete, onUp, onDown, canUp
 export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate, projectId, busy }) {
   const [dirty, setDirty] = useState(false)
   const [collapsed, setCollapsed] = useState({})
+  const [snapshots, setSnapshots] = useState([])
+  const [restoreMsg, setRestoreMsg] = useState('')
+
+  const refreshSnapshots = useCallback(async () => {
+    if (!projectId) {
+      setSnapshots([])
+      return
+    }
+    try {
+      const r = await api.listOutlineSnapshots(projectId)
+      setSnapshots(r.snapshots || [])
+    } catch {
+      setSnapshots([])
+    }
+  }, [projectId])
+
+  useEffect(() => {
+    refreshSnapshots()
+  }, [refreshSnapshots, outline?.status, (outline?.sections || []).length])
+
+  async function restoreLast() {
+    if (!projectId || !snapshots.length) return
+    const target = snapshots[0]?.id
+    if (!target) return
+    if (!window.confirm(`回退到大纲上一版 ${target}？当前版本会先再存一份。`)) return
+    setRestoreMsg('')
+    try {
+      const r = await api.restoreOutlineSnapshot(projectId, target)
+      setRestoreMsg(`已回退到 ${r.restored_from}`)
+      const next = await api.getOutline(projectId)
+      onChange?.(next)
+      setDirty(false)
+      await refreshSnapshots()
+    } catch (e) {
+      setRestoreMsg(String(e.message || e))
+    }
+  }
+
   if (!outline) return <p className="muted">暂无大纲</p>
 
   function patch(mutator) {
@@ -161,17 +200,6 @@ export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate
           </span>
         </div>
         <div className="toolbar-actions">
-          {onBack && (
-            <button
-              type="button"
-              className="btn ghost"
-              disabled={busy}
-              onClick={onBack}
-              title="返回版式"
-            >
-              ← 回退
-            </button>
-          )}
           <button
             type="button"
             className="btn ghost"
@@ -205,6 +233,7 @@ export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate
             onClick={async () => {
               await onSave(outline)
               setDirty(false)
+              await refreshSnapshots()
             }}
           >
             保存
@@ -222,6 +251,15 @@ export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate
           )}
           <button
             type="button"
+            className="btn"
+            disabled={busy || !snapshots.length}
+            title={snapshots[0] ? `回退到 ${snapshots[0].id}` : '暂无上一版大纲'}
+            onClick={restoreLast}
+          >
+            回退上版
+          </button>
+          <button
+            type="button"
             className="btn primary"
             disabled={busy}
             onClick={handleConfirm}
@@ -231,6 +269,7 @@ export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate
           </button>
         </div>
       </div>
+      {restoreMsg && <p className="muted">{restoreMsg}</p>}
 
       <div className="grid" style={{ marginBottom: '0.75rem', marginTop: '0.75rem' }}>
         <label>
