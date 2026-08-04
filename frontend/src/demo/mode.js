@@ -12,3 +12,6 @@ export const GITHUB_DECK_SKILL =
   'https://github.com/13781679184-cxw/sci-teaching-deck'
 export const GITHUB_STUDIO_WEB =
   'https://github.com/13781679184-cxw/sci-teaching-studio'
+
+/** Primary public demo (Cloudflare Pages). */
+export const DEMO_PUBLIC_URL = 'https://sci-teaching-studio.pages.dev/'

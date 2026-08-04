@@ -16,7 +16,9 @@ import {
   GITHUB_DECK_SKILL,
   GITHUB_STUDIO_WEB,
 } from './demo/mode.js'
-import { resetDemoWalkthrough, unlockDemoWalkthrough } from './demo/api.js'
+import { prefetchDemoPack, resetDemoWalkthrough, unlockDemoWalkthrough } from './demo/api.js'
+
+if (IS_DEMO) prefetchDemoPack()
 
 const GATES = [
   { id: 'input', label: '输入', gate: null },

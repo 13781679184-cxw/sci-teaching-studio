@@ -5,8 +5,8 @@ export default defineConfig(({ mode }) => {
   const demo = mode === 'demo'
   return {
     plugins: [react()],
-    // GitHub Pages project site
-    base: demo ? '/sci-teaching-studio/' : '/',
+    // Demo deploys to Cloudflare Pages at site root. GitHub mirror: `npm run build:demo:github`.
+    base: '/',
     define: demo
       ? {
           'import.meta.env.VITE_DEMO_BUILD': JSON.stringify(String(Date.now())),

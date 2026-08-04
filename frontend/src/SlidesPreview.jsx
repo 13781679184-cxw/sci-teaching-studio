@@ -161,7 +161,7 @@ export function SlidesPreview({
   const pageKey = selected ? normPageId(selected.page_id) : ''
   const pptx = pack?.pptx_download
   const hasExports = Boolean(pack?.has_exports)
-  const hasFullPng = Boolean(selected?.export_thumb_url)
+  const hasFullPng = Boolean(selected?.export_preview_url || selected?.export_thumb_url)
   const canRegenFig = Boolean(selected && !NO_FIG_ROLES.has(selected.page_role || ''))
   const canGenScript = Boolean(hasFinal || hasDraft || pptx)
 
@@ -562,9 +562,11 @@ export function SlidesPreview({
                     {hasFullPng ? (
                       <img
                         className="ppt-export"
-                        src={selected.export_thumb_url}
+                        src={selected.export_preview_url || selected.export_thumb_url}
                         alt={selected.page_title || selected.page_id}
                         draggable={false}
+                        decoding="async"
+                        fetchPriority="high"
                       />
                     ) : (
                       <PptSlide slide={selected} pageNo={idx + 1} total={n} />

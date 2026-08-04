@@ -63,6 +63,7 @@ function fixFigures(figuresPack) {
   const figures = (figuresPack.figures || []).map((f) => ({
     ...f,
     thumb_url: assetUrl(f.thumb_url),
+    preview_url: assetUrl(f.preview_url || f.thumb_url),
   }))
   return { ...figuresPack, figures }
 }
@@ -72,15 +73,23 @@ function fixSlides(slidesPack) {
     ...s,
     figure_thumb_url: assetUrl(s.figure_thumb_url),
     export_thumb_url: assetUrl(s.export_thumb_url),
+    export_preview_url: assetUrl(s.export_preview_url || s.export_thumb_url),
   }))
   return { ...slidesPack, slides }
+}
+
+/** Start loading showcase data as early as possible (demo shell). */
+export function prefetchDemoPack() {
+  if (pack || packPromise) return packPromise
+  return ensurePack()
 }
 
 async function ensurePack() {
   if (pack) return pack
   if (!packPromise) {
     const bust = import.meta.env.VITE_DEMO_BUILD || Date.now()
-    packPromise = fetch(`${BASE}showcase/my-ppt/pack.json?v=${bust}`, { cache: 'no-store' })
+    // Version query busts on each deploy; allow browser cache between visits.
+    packPromise = fetch(`${BASE}showcase/my-ppt/pack.json?v=${bust}`)
       .then(async (r) => {
         if (!r.ok) throw new Error(`showcase pack ${r.status}`)
         const raw = await r.json()

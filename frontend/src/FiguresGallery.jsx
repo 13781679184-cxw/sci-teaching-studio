@@ -491,8 +491,12 @@ export function FiguresGallery({
                 </button>
               </div>
             </div>
-            {preview.thumb_url ? (
-              <img src={preview.thumb_url} alt={figureTitle(preview)} />
+            {preview.preview_url || preview.thumb_url ? (
+              <img
+                src={preview.preview_url || preview.thumb_url}
+                alt={figureTitle(preview)}
+                decoding="async"
+              />
             ) : (
               <div className="ph lightbox-ph">暂无图片文件 · 可点上方「重新生成」</div>
             )}

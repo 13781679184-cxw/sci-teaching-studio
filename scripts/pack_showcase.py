@@ -11,10 +11,40 @@ ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / "workspace" / "my-ppt"
 OUT = ROOT / "frontend" / "public" / "showcase" / "my-ppt"
 FILES = OUT / "files"
+THUMB_MAX = 400
+THUMB_QUALITY = 82
+
+try:
+    from PIL import Image
+except ImportError:  # pragma: no cover
+    Image = None  # type: ignore[misc, assignment]
 
 # studio backend on path
 sys.path.insert(0, str(ROOT / "backend"))
 import projects as P  # noqa: E402
+
+
+def _thumb_rel(rel: str) -> str:
+    p = Path(rel)
+    return str(p.parent / "_thumbs" / f"{p.stem}_w{THUMB_MAX}.webp").replace("\\", "/")
+
+
+def _write_thumb(src: Path, dest: Path) -> bool:
+    if Image is None or not src.is_file():
+        return False
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        with Image.open(src) as im:
+            im = im.convert("RGBA") if im.mode in ("P", "LA") else im.convert("RGB")
+            w, h = im.size
+            if w > THUMB_MAX:
+                nh = max(1, int(h * THUMB_MAX / w))
+                im = im.resize((THUMB_MAX, nh), Image.Resampling.LANCZOS)
+            im.save(dest, "WEBP", quality=THUMB_QUALITY, method=6)
+        return dest.is_file()
+    except OSError as exc:
+        print("thumb skip", src, exc)
+        return False
 
 
 def copy_file(rel: str) -> str | None:
@@ -26,6 +56,23 @@ def copy_file(rel: str) -> str | None:
     shutil.copy2(src, dest)
     # URL path under Vite base + public/
     return f"showcase/my-ppt/files/{rel.replace(chr(92), '/')}"
+
+
+def thumb_url_for(rel: str) -> str | None:
+    """Small WebP for grids / filmstrip; falls back to full asset URL."""
+    src = PROJECT / rel
+    if not src.is_file():
+        return None
+    full = copy_file(rel)
+    if not full:
+        return None
+    if not rel.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+        return full
+    trel = _thumb_rel(rel)
+    tdest = FILES / trel
+    if _write_thumb(src, tdest):
+        return f"showcase/my-ppt/files/{trel}"
+    return full
 
 
 def main() -> None:
@@ -173,6 +220,7 @@ def main() -> None:
         crop = f.get("crop") or {}
         path = f.get("file_path") or crop.get("safe_path")
         url = copy_file(path) if path else None
+        thumb = thumb_url_for(path) if path else None
         pages = used_by.get(f.get("figure_id") or "", [])
         kind = f.get("figure_kind")
         fig_rows.append(
@@ -191,7 +239,8 @@ def main() -> None:
                 "caption": (f.get("caption_zh") or f.get("original_caption") or "")[:500],
                 "caption_zh": f.get("caption_zh"),
                 "caption_en": (f.get("original_caption") or "")[:500] or None,
-                "thumb_url": url,
+                "thumb_url": thumb or url,
+                "preview_url": url,
             }
         )
 
@@ -240,6 +289,7 @@ def main() -> None:
         fig = figs_by_id.get(fid) if fid else None
         export_rel = f"deck/slide_exports/slide_{i + 1:02d}.png"
         export_url = copy_file(export_rel)
+        export_thumb = thumb_url_for(export_rel) if export_rel else None
         slide_rows.append(
             {
                 "page_id": s.get("page_id"),
@@ -253,7 +303,8 @@ def main() -> None:
                 "layout": vp.get("layout"),
                 "visual_plan": vp,
                 "figure_thumb_url": (fig or {}).get("thumb_url"),
-                "export_thumb_url": export_url,
+                "export_thumb_url": export_thumb or export_url,
+                "export_preview_url": export_url,
             }
         )
     slides_pack = {

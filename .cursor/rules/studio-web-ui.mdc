@@ -12,9 +12,10 @@ When changing `sci-teaching-studio/frontend`, optimize the product without waiti
 | Surface | URL | How it updates |
 |--------|-----|----------------|
 | Local Studio | `http://127.0.0.1:5180/` | Vite/dev — instant after save |
-| Public demo | `https://13781679184-cxw.github.io/sci-teaching-studio/` | Same `frontend/` on `main` → GitHub Actions Pages deploy |
+| Public demo (primary) | `https://sci-teaching-studio.pages.dev/` | `frontend/` on `main` → `cloudflare-pages.yml` (Wrangler) |
+| Public demo (mirror) | `https://13781679184-cxw.github.io/sci-teaching-studio/` | Optional `pages-demo.yml` — often blocked in CN |
 
-They are **not** separate products. Local edits do **not** appear on Pages until **commit + push** to `sci-teaching-studio` `main` (workflow `pages-demo.yml`).
+They are **not** separate products. Local edits do **not** appear on Pages until **commit + push** to `sci-teaching-studio` `main` (workflows `cloudflare-pages.yml` + optional `pages-demo.yml`).
 
 ### Default sync rule
 
@@ -22,7 +23,7 @@ After any change that affects Studio UI/demo behavior (`frontend/**`, showcase p
 
 1. Finish the fix locally.
 2. **Commit and push** to `origin/main` in `sci-teaching-studio` (unless secrets/workspace junk).
-3. Watch/confirm Pages deploy succeeds; tell the user the public URL.
+3. Watch/confirm Cloudflare Pages deploy succeeds; tell the user **https://sci-teaching-studio.pages.dev/** .
 
 **Do this by default** — do not wait for “推送到公开站”.
 

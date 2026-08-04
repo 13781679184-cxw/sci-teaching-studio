@@ -31,7 +31,7 @@ jobs:
         working-directory: frontend
         run: |
           npm ci
-          npm run build:demo
+          npm run build:demo:github
       - uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist
