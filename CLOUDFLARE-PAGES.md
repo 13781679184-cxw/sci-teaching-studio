@@ -28,8 +28,23 @@ npx wrangler pages project create sci-teaching-studio --production-branch main
 
 | Secret | 内容 |
 |--------|------|
-| `CLOUDFLARE_API_TOKEN` | 上一步的 Token |
+| `CLOUDFLARE_API_TOKEN` | 见下方「API Token 权限」 |
 | `CLOUDFLARE_ACCOUNT_ID` | Account ID |
+
+### API Token 权限（Actions 失败 Authentication error 10000 时必查）
+
+在 [API Tokens](https://dash.cloudflare.com/profile/api-tokens) → **创建令牌** → **自定义令牌**：
+
+| 权限 | 级别 |
+|------|------|
+| Account → **Cloudflare Pages** | **Edit** |
+| Account → Account Settings | Read |
+
+**账户资源**：包含 → 选你的账户（`13781679184@163.com`）。
+
+保存后，到 GitHub 把 `CLOUDFLARE_API_TOKEN` **更新**为新 Token（旧 Token 权限不够会部署失败）。
+
+仅「Workers 模板」有时不含 Pages API，请用上面自定义权限。
 
 推送 `main` 且 `frontend/**` 有变更时，workflow `Deploy demo (Cloudflare Pages)` 会构建并 `wrangler pages deploy`。
 
