@@ -30,10 +30,11 @@ ALLOWED_STEPS = {
         "--papers-only",
         "--paper-channels",
         "openalex,pubmed",
+        # LLM query rewrite on by default in script
     ],
-    "screen": ["scripts/screen_sources.py", "{project}"],
+    "screen": ["scripts/screen_sources.py", "{project}"],  # LLM screen default on
     "confirm_sources": ["scripts/confirm_sources.py", "{project}", "--accept-keeps", "--accept-maybes"],
-    "extract": ["scripts/extract_evidence.py", "{project}"],
+    "extract": ["scripts/extract_evidence.py", "{project}"],  # LLM claims default on
     "plan_figures": ["scripts/plan_figures.py", "{project}"],
     "confirm_figures": ["scripts/confirm_figures.py", "{project}"],
     "crop": ["scripts/crop_source_figures.py", "{project}", "--max-sources", "6", "--max-figures-per-source", "2"],
