@@ -70,6 +70,24 @@ body {
   font-weight: 600;
 }
 
+.intake-intent-banner {
+  margin: 0.5rem 0 0;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--accent-soft);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.intake-intent-banner strong {
+  margin-right: 0.45rem;
+  color: var(--accent);
+}
+.intake-intent-banner span {
+  color: var(--muted);
+}
+
 .demo-rail-repos {
   margin: 0;
   padding: 0 0.15rem 0.4rem;

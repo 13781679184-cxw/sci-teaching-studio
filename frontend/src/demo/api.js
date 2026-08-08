@@ -98,6 +98,19 @@ async function ensurePack() {
           figures: fixFigures(raw.figures || {}),
           slides: fixSlides(raw.slides || {}),
         }
+        if (pack.outline && !pack.outline.intake_intent) {
+          pack.outline = {
+            ...pack.outline,
+            intake_intent: {
+              intent: 'brief_rich',
+              label_zh: '丰富需求（有想法、非完整大纲）',
+              confidence: 0.82,
+              rationale: '演示快照：按「有想法的需求」档展示（静态包不重跑分类）',
+              used_llm: false,
+              source: 'demo',
+            },
+          }
+        }
         themeState = { ...(pack.theme || {}) }
         outline = structuredClone(pack.outline)
         lecture = pack.lecture || ''

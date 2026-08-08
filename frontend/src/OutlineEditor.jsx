@@ -178,6 +178,11 @@ export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate
   const statusLabel =
     outline.status === 'user_confirmed' ? '已确认' : outline.status === 'draft' ? '草稿' : outline.status
 
+  const intake = outline.intake_intent && typeof outline.intake_intent === 'object' ? outline.intake_intent : null
+  const intakeLabel = intake?.label_zh || intake?.intent || ''
+  const intakeConf =
+    typeof intake?.confidence === 'number' ? ` · 置信 ${Math.round(intake.confidence * 100)}%` : ''
+
   async function handleConfirm() {
     if (dirty) {
       await onSave(outline)
@@ -243,7 +248,7 @@ export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate
               type="button"
               className="btn"
               disabled={busy || dirty}
-              title={dirty ? '请先保存' : '根据需求 AI 重拟大纲'}
+              title={dirty ? '请先保存' : '根据需求 AI 重拟大纲（会重新识别输入意图）'}
               onClick={onGenerate}
             >
               重拟
@@ -269,6 +274,16 @@ export function OutlineEditor({ outline, onChange, onSave, onConfirm, onGenerate
           </button>
         </div>
       </div>
+      {intakeLabel ? (
+        <p className="intake-intent-banner" role="status" title={intake?.rationale || ''}>
+          <strong>输入意图</strong>
+          <span>
+            {intakeLabel}
+            {intakeConf}
+            {intake?.rationale ? ` · ${intake.rationale}` : ''}
+          </span>
+        </p>
+      ) : null}
       {restoreMsg && <p className="muted">{restoreMsg}</p>}
 
       <div className="grid" style={{ marginBottom: '0.75rem', marginTop: '0.75rem' }}>
