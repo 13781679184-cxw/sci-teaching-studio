@@ -263,6 +263,14 @@ export function SourcesTable({
         </div>
       </div>
 
+      <p className="sources-screen-hint" role="note">
+        <strong>浅读 ≠ 终评</strong>
+        <span>
+          列表里的相关度只基于标题/摘要的初筛，数值偏低很常见。选用后会尝试获取
+          PDF，再做全文细读、抽主张与裁图；未能自动拿到全文时可手动上传。
+        </span>
+      </p>
+
       {addBar}
 
       <div className="table-wrap">
