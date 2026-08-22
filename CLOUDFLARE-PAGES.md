@@ -6,6 +6,18 @@
 
 GitHub Pages（`github.io`，国内常不可用）仅作镜像，见 `.github/workflows/pages-demo.yml`。
 
+### 换 GitHub 仓库后，演示站链接会变吗？
+
+**一般不会变。** `*.pages.dev` 跟的是 **Cloudflare Pages 项目名**（本仓为 `sci-teaching-studio`，见 `frontend/wrangler.jsonc` 的 `name`），不是 GitHub 仓库名。
+
+| 操作 | 链接 |
+|------|------|
+| 新建 GitHub 仓，但 Cloudflare 仍部署到同一 Pages 项目 `sci-teaching-studio` | **仍是** `https://sci-teaching-studio.pages.dev/` |
+| 在 Cloudflare 新建另一个 Pages 项目 | **会变**（新项目名.pages.dev） |
+| 绑定了自定义域名 | 自定义域名可保持不变 |
+
+换仓时：把 GitHub Actions secrets 配到新仓，或 `wrangler pages deploy` 仍指向项目 `sci-teaching-studio` 即可保链接。
+
 ## 一次性：Cloudflare 侧
 
 1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/)（免费账号即可）。

@@ -121,6 +121,13 @@ const liveApi = {
   getJob: (jobId) => req(`/jobs/${jobId}`),
   cancelJob: (jobId) => req(`/jobs/${jobId}/cancel`, { method: 'POST', body: '{}' }),
   listJobs: (id) => req(`/projects/${id}/jobs`),
+  /** LangGraph agent pipeline (HITL interrupts at outline/sources/figures). */
+  startAgent: (id, body = {}) =>
+    req(`/projects/${id}/agent/run`, { method: 'POST', body: JSON.stringify(body) }),
+  resumeAgent: (id, body) =>
+    req(`/projects/${id}/agent/resume`, { method: 'POST', body: JSON.stringify(body) }),
+  listAgentThreads: (id) => req(`/projects/${id}/agent/threads`),
+  getAgentThread: (threadId) => req(`/agent/threads/${threadId}`),
   downloadUrl: (id, path) =>
     `${BASE}/projects/${id}/artifact?path=${encodeURIComponent(path)}`,
   packDownloadUrl: (id) => `${BASE}/projects/${id}/download-pack`,

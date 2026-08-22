@@ -1,6 +1,6 @@
 # Sci Teaching Studio · 怎么启动
 
-> HITL Web 壳：门禁确认 + 触发 `sci-teaching-deck` 脚本。JSON/PPTX 仍是事实源与交付物。
+> HITL Web 壳：门禁确认 + 触发 `sci-teaching-deck` 脚本；也可走 **LangGraph Agent**（`POST /projects/{id}/agent/run`，见 `backend/AGENT-LANGGRAPH.md`）。JSON/PPTX 仍是事实源与交付物。
 
 ## 两种用法（先看这个）
 

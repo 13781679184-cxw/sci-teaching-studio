@@ -346,3 +346,39 @@ def list_jobs(project_id: str | None = None, limit: int = 30) -> list[dict[str, 
         items = [j for j in items if j.project_id == project_id]
     items.sort(key=lambda j: j.created_at, reverse=True)
     return [j.to_dict() for j in items[:limit]]
+
+
+def wait_job(job_id: str, *, timeout_s: float = 7200.0, poll_s: float = 1.0) -> Job:
+    """Block until a background job finishes (ok|error|cancelled) or timeout."""
+    import time
+
+    deadline = time.time() + timeout_s
+    while time.time() < deadline:
+        job = JOBS.get(job_id)
+        if job is None:
+            raise KeyError(f"unknown job_id={job_id}")
+        if job.status not in {"queued", "running"}:
+            return job
+        time.sleep(poll_s)
+    job = JOBS.get(job_id)
+    if job is None:
+        raise TimeoutError(f"job {job_id} disappeared")
+    raise TimeoutError(f"job {job_id} step={job.step} still {job.status} after {timeout_s}s")
+
+
+def run_step_blocking(
+    project_id: str,
+    step: str,
+    extra: dict[str, Any] | None = None,
+    *,
+    timeout_s: float = 7200.0,
+) -> Job:
+    """Start a deck step and wait for completion. Raises on non-ok status."""
+    job = start_job(project_id, step, extra)
+    done = wait_job(job.job_id, timeout_s=timeout_s)
+    if done.status != "ok":
+        raise RuntimeError(
+            f"step={step} status={done.status} code={done.returncode} "
+            f"log_tail={(done.log or '')[-800:]}"
+        )
+    return done

@@ -88,8 +88,29 @@ class CopilotStudioBody(BaseModel):
     page_id: str | None = None
 
 
+class AgentStartBody(BaseModel):
+    thread_id: str | None = None
+    skip_outline_generate: bool = False
+    skip_fill: bool = False
+
+
+class AgentResumeBody(BaseModel):
+    thread_id: str
+    user_choice: str = "确认"
+    reason: str | None = None
+    outline_status: str | None = None
+
+
 @app.get("/health")
 def health():
+    agent_ok = False
+    try:
+        import agent_runtime as AR  # noqa: WPS433
+
+        AR.get_graph()
+        agent_ok = True
+    except Exception:
+        agent_ok = False
     return {
         "ok": True,
         "deck_root": str(P.deck_root()),
@@ -97,6 +118,7 @@ def health():
         "python": str(P.python_exe()),
         "steps": J.known_steps(),
         "providers": PV.public_state().get("capabilities"),
+        "langgraph_agent": agent_ok,
     }
 
 
@@ -1086,6 +1108,62 @@ def cancel_job(job_id: str):
 @app.get("/projects/{project_id}/jobs")
 def project_jobs(project_id: str):
     return {"jobs": J.list_jobs(project_id)}
+
+
+@app.post("/projects/{project_id}/agent/run")
+def agent_run(project_id: str, body: AgentStartBody):
+    """Start LangGraph pipeline (outline → gates → retrieve → extract/RAG → deliver)."""
+    try:
+        import agent_runtime as AR
+
+        return AR.start_agent(
+            project_id,
+            thread_id=body.thread_id,
+            skip_outline_generate=body.skip_outline_generate,
+            skip_fill=body.skip_fill,
+            background=True,
+        )
+    except FileNotFoundError:
+        raise HTTPException(404, "project not found") from None
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(500, f"langgraph agent unavailable: {exc}") from exc
+
+
+@app.post("/projects/{project_id}/agent/resume")
+def agent_resume(project_id: str, body: AgentResumeBody):
+    """Resume after a HITL interrupt (confirm gate)."""
+    try:
+        import agent_runtime as AR
+
+        return AR.resume_agent(
+            project_id,
+            body.thread_id,
+            user_choice=body.user_choice,
+            reason=body.reason,
+            outline_status=body.outline_status,
+            background=True,
+        )
+    except FileNotFoundError:
+        raise HTTPException(404, "project not found") from None
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(500, str(exc)) from exc
+
+
+@app.get("/projects/{project_id}/agent/threads")
+def agent_threads(project_id: str):
+    import agent_runtime as AR
+
+    return {"threads": AR.list_threads(project_id)}
+
+
+@app.get("/agent/threads/{thread_id}")
+def agent_thread(thread_id: str):
+    import agent_runtime as AR
+
+    t = AR.get_thread(thread_id)
+    if not t:
+        raise HTTPException(404, "thread not found")
+    return t
 
 
 @app.get("/projects/{project_id}/qa")
