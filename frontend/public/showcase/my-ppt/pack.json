@@ -18019,7 +18019,7 @@
   },
   "slides": {
     "project_id": "my-ppt",
-    "count": 35,
+    "count": 28,
     "has_exports": true,
     "slides": [
       {
@@ -18120,7 +18120,7 @@
             "F018"
           ],
           "selected_figure_id": "F018",
-          "caption": "本课件自制示意图，用于「药物研发的漏斗模型：十亿美元分子的诞生之路」。",
+          "caption": null,
           "alt_text": "示意图：药物研发的漏斗模型：十亿美元分子的诞生之路。经典药物研发漏斗图，标注各阶段化合物数量（10000→1000→10→1）及耗时/成本",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18155,7 +18155,7 @@
             "F019"
           ],
           "selected_figure_id": "F019",
-          "caption": "本课件自制示意图，用于「药物研发的漏斗模型：反摩尔定律(Eroom's Law)的挑战」。",
+          "caption": null,
           "alt_text": "示意图：药物研发的漏斗模型：反摩尔定律(Eroom's Law)的挑战。过去60年每10亿美元研发投入获批新药数量的指数下降曲线",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18194,7 +18194,7 @@
             "F020"
           ],
           "selected_figure_id": "F020",
-          "caption": "本课件自制示意图，用于「靶点的可药性(Druggability)：什么样的口袋适合小分子？」。",
+          "caption": null,
           "alt_text": "示意图：靶点的可药性(Druggability)：什么样的口袋适合小分子？。对比图：深疏水口袋(GPCR/激酶) vs 平坦表面(PPI/转录因子)，标注体积与疏水性",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18211,120 +18211,6 @@
       {
         "page_id": "P06",
         "order": 6,
-        "page_role": "content",
-        "page_title": "论文示例（合并）：Figure 3",
-        "key_message": "口袋特征 — 深、疏水、有明确氢键供受体位点",
-        "on_slide_text": [
-          "本课统一论文示例：Figure 3",
-          "下列讲授页与本图部分相关；各页主幻灯片以自制示意图为准，此处对照阅读原文",
-          "· P05 靶点的可药性(Druggability)：什么样的口袋适合小分子？",
-          "Figure 3 裁自 Refahi MS et al., 2026，2026，doi:10.3390/biology15120971，许可：cc-by。"
-        ],
-        "resolution_status": "resolved",
-        "selected_figure_id": "F015",
-        "layout": "figure_focus",
-        "visual_plan": {
-          "purpose": "论文原图合并示例 — Figure 3",
-          "layout": "figure_focus",
-          "visual_type": "ai_scientific_illustration",
-          "candidate_figure_ids": [
-            "F017",
-            "F015"
-          ],
-          "selected_figure_id": "F015",
-          "caption": "【裁剪说明】下图为自动 safe 素材（范围偏大，非终稿图）。\n请替换为手动裁切结果：保留 Figure 3 中的分图 (a)、(b)；\n围绕本页重点「论文原图合并示例 — Figure 3」。\n勿带入图外正文、页眉页脚或邻页内容。\n【论文图注】图3. 小分子构象搜索方法。(a) 一个含有两个大体积基团（绿色和紫色球体）的分子，其构象由两个内二面角Φ₁和Φ₂定义；(b) 将Φ₁视为冻结二面角，由Φ₂旋转引起的能量变化绘制在一维能量景观中。初始结构（灰色球体）为\n【署名】Figure 3 裁自 Leonardo L. G. Ferreira et al., 2015，Molecules，2015，doi:10.3390/molecules200713384，许可：cc-by。",
-          "alt_text": "示意图：论文示例（合并）：Figure 3。论文原图合并示例 — Figure 3",
-          "resolution_status": "resolved",
-          "blocked_reason": null,
-          "base_purpose": "论文原图合并示例 — Figure 3",
-          "prompt_history": [
-            "把漏斗画成四段"
-          ]
-        },
-        "figure_thumb_url": "showcase/my-ppt/files/images/S007/_thumbs/S007_p5_figure3_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_06_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_06.png"
-      },
-      {
-        "page_id": "P07",
-        "order": 7,
-        "page_role": "content",
-        "page_title": "论文示例（合并）：Figure 3",
-        "key_message": "口袋特征 — 深、疏水、有明确氢键供受体位点",
-        "on_slide_text": [
-          "本课统一论文示例：Figure 3",
-          "下列讲授页与本图部分相关；各页主幻灯片以自制示意图为准，此处对照阅读原文",
-          "· P05 靶点的可药性(Druggability)：什么样的口袋适合小分子？",
-          "Figure 3 裁自 Leonardo L. G. Ferreira et al., 2015，Molecules，2015，doi:10.3390/molecules200713384，许可：cc-by。"
-        ],
-        "resolution_status": "resolved",
-        "selected_figure_id": "F017",
-        "layout": "figure_focus",
-        "visual_plan": {
-          "purpose": "论文原图合并示例 — Figure 3",
-          "layout": "figure_focus",
-          "visual_type": "ai_scientific_illustration",
-          "candidate_figure_ids": [
-            "F015",
-            "F017"
-          ],
-          "selected_figure_id": "F017",
-          "caption": "【裁剪说明】下图为自动 safe 素材（范围偏大，非终稿图）。\n请替换为手动裁切结果：保留 请依照 Figure 3 图注中**实际标注**的分图字母手动裁切；若 safe 图含多个无关分图，只保留与本页教学重点相关的面板，勿臆造 a/b/c。；\n围绕本页重点「论文原图合并示例 — Figure 3」。\n勿带入图外正文、页眉页脚或邻页内容。\n【论文图注】图3 基于“物理印迹”在金属有机框架材料（MOF）中构建的与酶分子尺寸和形状相匹配的“印迹空腔”示意图［27］\n【署名】Figure 3 裁自 Refahi MS et al., 2026，2026，doi:10.3390/biology15120971，许可：cc-by。",
-          "alt_text": "示意图：论文示例（合并）：Figure 3。论文原图合并示例 — Figure 3",
-          "resolution_status": "resolved",
-          "blocked_reason": null,
-          "base_purpose": "论文原图合并示例 — Figure 3",
-          "prompt_history": [
-            "把漏斗画成四段"
-          ]
-        },
-        "figure_thumb_url": "showcase/my-ppt/files/images/S010/_thumbs/S010_p6_figure3_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_07_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_07.png"
-      },
-      {
-        "page_id": "P08",
-        "order": 8,
-        "page_role": "content",
-        "page_title": "论文示例（合并）：Figure 2",
-        "key_message": "口袋特征 — 深、疏水、有明确氢键供受体位点",
-        "on_slide_text": [
-          "本课统一论文示例：Figure 2",
-          "下列讲授页与本图部分相关；各页主幻灯片以自制示意图为准，此处对照阅读原文",
-          "· P05 靶点的可药性(Druggability)：什么样的口袋适合小分子？",
-          "· P06 靶点的可药性(Druggability)：靶点确证的遗传学证据",
-          "· P09 高通量筛选(HTS)与虚拟筛选(VS)：湿实验筛选：HTS的流程与陷阱",
-          "· P10 高通量筛选(HTS)与虚拟筛选(VS)：干实验筛选：分子对接的原理与局限",
-          "· P11 高通量筛选(HTS)与虚拟筛选(VS)：片段筛选(FBDD)：以小博大的策略",
-          "Figure 2 裁自 Leonardo L. G. Ferreira et al., 2015，Molecules，2015，doi:10.3390/molecules200713384，许可：cc-by。"
-        ],
-        "resolution_status": "resolved",
-        "selected_figure_id": "F014",
-        "layout": "figure_focus",
-        "visual_plan": {
-          "purpose": "论文原图合并示例 — Figure 2",
-          "layout": "figure_focus",
-          "visual_type": "ai_scientific_illustration",
-          "candidate_figure_ids": [
-            "F014"
-          ],
-          "selected_figure_id": "F014",
-          "caption": "【裁剪说明】下图为自动 safe 素材（范围偏大，非终稿图）。\n请替换为手动裁切结果：保留 Figure 2 中的分图 (a)、(b)、(c)、(d)；\n围绕本页重点「论文原图合并示例 — Figure 2」。\n勿带入图外正文、页眉页脚或邻页内容。\n【论文图注】图 2. 分子对接流程示意图。(a) 配体的三维结构；(b) 受体的三维结构；(c) 将配体对接至受体的结合空腔中，并探索可能的构象；(d) 确定最可能的结合构象及相应的分子间相互作用。蛋白质主链以卡通模型表示。配体（碳原子为品红色）及活性\n【署名】Figure 2 裁自 Leonardo L. G. Ferreira et al., 2015，Molecules，2015，doi:10.3390/molecules200713384，许可：cc-by。",
-          "alt_text": "示意图：论文示例（合并）：Figure 2。论文原图合并示例 — Figure 2",
-          "resolution_status": "resolved",
-          "blocked_reason": null,
-          "base_purpose": "论文原图合并示例 — Figure 2",
-          "prompt_history": [
-            "把漏斗画成四段"
-          ]
-        },
-        "figure_thumb_url": "showcase/my-ppt/files/images/S007/_thumbs/S007_p4_figure2_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_08_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_08.png"
-      },
-      {
-        "page_id": "P09",
-        "order": 9,
         "page_role": "content",
         "page_title": "靶点的可药性(Druggability)：靶点确证的遗传学证据",
         "key_message": "相关性≠因果性 — mRNA高表达不代表驱动疾病",
@@ -18347,7 +18233,7 @@
             "F021"
           ],
           "selected_figure_id": "F021",
-          "caption": "本课件自制示意图，用于「靶点的可药性(Druggability)：靶点确证的遗传学证据」。",
+          "caption": null,
           "alt_text": "示意图：靶点的可药性(Druggability)：靶点确证的遗传学证据。孟德尔随机化(Mendelian Randomization)示意图：基因变异→蛋白功能→疾病表型的因果链",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18358,12 +18244,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F021_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_09_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_09.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_06_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_06.png"
       },
       {
-        "page_id": "P10",
-        "order": 10,
+        "page_id": "P07",
+        "order": 7,
         "page_role": "content",
         "page_title": "小分子作用模式分类：正构vs变构：两种调控逻辑",
         "key_message": "正构抑制 — 竞争底物/辅因子结合位点，易脱靶",
@@ -18382,7 +18268,7 @@
             "F022"
           ],
           "selected_figure_id": "F022",
-          "caption": "本课件自制示意图，用于「小分子作用模式分类：正构vs变构：两种调控逻辑」。",
+          "caption": null,
           "alt_text": "示意图：小分子作用模式分类：正构vs变构：两种调控逻辑。激酶ATP结合位点(正构) vs 远端变构口袋的晶体结构叠合图",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18393,12 +18279,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F022_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_10_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_10.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_07_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_07.png"
       },
       {
-        "page_id": "P11",
-        "order": 11,
+        "page_id": "P08",
+        "order": 8,
         "page_role": "content",
         "page_title": "小分子作用模式分类：超越占位驱动：事件驱动药理学",
         "key_message": "占位驱动 — 需持续高浓度占据靶点才有效",
@@ -18417,7 +18303,7 @@
             "F023"
           ],
           "selected_figure_id": "F023",
-          "caption": "本课件自制示意图，用于「小分子作用模式分类：超越占位驱动：事件驱动药理学」。",
+          "caption": null,
           "alt_text": "示意图：小分子作用模式分类：超越占位驱动：事件驱动药理学。PROTAC三元复合物(靶蛋白-Linker-E3连接酶)作用机制动画截图",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18428,12 +18314,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F023_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_11_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_11.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_08_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_08.png"
       },
       {
-        "page_id": "P12",
-        "order": 12,
+        "page_id": "P09",
+        "order": 9,
         "page_role": "content",
         "page_title": "高通量筛选(HTS)与虚拟筛选(VS)：湿实验筛选：HTS的流程与陷阱",
         "key_message": "规模效应 — 百万级化合物，纳摩尔级检测",
@@ -18454,7 +18340,7 @@
             "F024"
           ],
           "selected_figure_id": "F024",
-          "caption": "本课件自制示意图，用于「高通量筛选(HTS)与虚拟筛选(VS)：湿实验筛选：HTS的流程与陷阱」。",
+          "caption": null,
           "alt_text": "示意图：高通量筛选(HTS)与虚拟筛选(VS)：湿实验筛选：HTS的流程与陷阱。HTS流程图：化合物库→自动化加样→检测→Hit确认→Counter-screen排除假阳性",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18465,12 +18351,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F024_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_12_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_12.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_09_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_09.png"
       },
       {
-        "page_id": "P13",
-        "order": 13,
+        "page_id": "P10",
+        "order": 10,
         "page_role": "content",
         "page_title": "高通量筛选(HTS)与虚拟筛选(VS)：干实验筛选：分子对接的原理与局限",
         "key_message": "核心假设 — 形状互补+能量最小化≈真实结合",
@@ -18491,7 +18377,7 @@
             "F025"
           ],
           "selected_figure_id": "F025",
-          "caption": "本课件自制示意图，用于「高通量筛选(HTS)与虚拟筛选(VS)：干实验筛选：分子对接的原理与局限」。",
+          "caption": null,
           "alt_text": "示意图：高通量筛选(HTS)与虚拟筛选(VS)：干实验筛选：分子对接的原理与局限。分子对接打分函数组成示意图：范德华力+静电+去溶剂化+熵罚",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18502,12 +18388,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F025_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_13_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_13.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_10_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_10.png"
       },
       {
-        "page_id": "P14",
-        "order": 14,
+        "page_id": "P11",
+        "order": 11,
         "page_role": "content",
         "page_title": "高通量筛选(HTS)与虚拟筛选(VS)：片段筛选(FBDD)：以小博大的策略",
         "key_message": "片段优势 — 配体效率高(LE)、化学空间采样更充分",
@@ -18528,7 +18414,7 @@
             "F026"
           ],
           "selected_figure_id": "F026",
-          "caption": "本课件自制示意图，用于「高通量筛选(HTS)与虚拟筛选(VS)：片段筛选(FBDD)：以小博大的策略」。",
+          "caption": null,
           "alt_text": "示意图：高通量筛选(HTS)与虚拟筛选(VS)：片段筛选(FBDD)：以小博大的策略。片段生长(Fragment Growing)与片段连接(Fragment Linking)策略对比图",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18539,12 +18425,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F026_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_14_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_14.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_11_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_11.png"
       },
       {
-        "page_id": "P15",
-        "order": 15,
+        "page_id": "P12",
+        "order": 12,
         "page_role": "content",
         "page_title": "苗头到先导(Hit-to-Lead)的确认标准：什么是真正的‘先导物’？",
         "key_message": "可合成性 — 能在合理时间内制备类似物探索SAR",
@@ -18564,7 +18450,7 @@
             "F027"
           ],
           "selected_figure_id": "F027",
-          "caption": "本课件自制示意图，用于「苗头到先导(Hit-to-Lead)的确认标准：什么是真正的‘先导物’？」。",
+          "caption": null,
           "alt_text": "示意图：苗头到先导(Hit-to-Lead)的确认标准：什么是真正的‘先导物’？。教学示意图：说明「苗头到先导(Hit-to-Lead)的确认标准」。重点：能列出H2L阶段必须满足的4-5个关键准入标准。纯白背景，扁平矢量示意。仅示意结构/流程，不出现定量结果、显微图、条带或未在证据中的结论。",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18575,12 +18461,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F027_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_15_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_15.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_12_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_12.png"
       },
       {
-        "page_id": "P16",
-        "order": 16,
+        "page_id": "P13",
+        "order": 13,
         "page_role": "content",
         "page_title": "苗头到先导(Hit-to-Lead)的确认标准：SAR探索的早期策略",
         "key_message": "扫描取代基 — 电子效应、立体效应、疏水性系统变化",
@@ -18599,7 +18485,7 @@
             "F028"
           ],
           "selected_figure_id": "F028",
-          "caption": "本课件自制示意图，用于「苗头到先导(Hit-to-Lead)的确认标准：SAR探索的早期策略」。",
+          "caption": null,
           "alt_text": "示意图：苗头到先导(Hit-to-Lead)的确认标准：SAR探索的早期策略。一个先导系列的SAR表格：R基团变化→活性/溶解度/logP联动变化",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18610,12 +18496,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F028_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_16_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_16.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_13_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_13.png"
       },
       {
-        "page_id": "P17",
-        "order": 17,
+        "page_id": "P14",
+        "order": 14,
         "page_role": "content",
         "page_title": "ADMET性质的分子基础：类药五原则(Ro5)及其超越",
         "key_message": "经典Ro5 — MW<500, LogP<5, HBD≤5, HBA≤10",
@@ -18636,7 +18522,7 @@
             "F029"
           ],
           "selected_figure_id": "F029",
-          "caption": "本课件自制示意图，用于「ADMET性质的分子基础：类药五原则(Ro5)及其超越」。",
+          "caption": null,
           "alt_text": "示意图：ADMET性质的分子基础：类药五原则(Ro5)及其超越。Ro5四象限图 + Beyond Ro5药物(如Venetoclax)位置标注",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18647,86 +18533,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F029_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_17_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_17.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_14_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_14.png"
       },
       {
-        "page_id": "P18",
-        "order": 18,
-        "page_role": "content",
-        "page_title": "论文示例（合并）：Figure 3",
-        "key_message": "经典Ro5 — MW<500, LogP<5, HBD≤5, HBA≤10",
-        "on_slide_text": [
-          "本课统一论文示例：Figure 3",
-          "下列讲授页与本图部分相关；各页主幻灯片以自制示意图为准，此处对照阅读原文",
-          "· P14 ADMET性质的分子基础：类药五原则(Ro5)及其超越",
-          "Figure 3 裁自 Paul BM et al., 2025，2025，doi:10.1007/s13205-025-04276-8，许可：cached-prior-allowed。"
-        ],
-        "resolution_status": "resolved",
-        "selected_figure_id": "F013",
-        "layout": "figure_focus",
-        "visual_plan": {
-          "purpose": "论文原图合并示例 — Figure 3",
-          "layout": "figure_focus",
-          "visual_type": "ai_scientific_illustration",
-          "candidate_figure_ids": [
-            "F013"
-          ],
-          "selected_figure_id": "F013",
-          "caption": "【裁剪说明】下图为自动 safe 素材（范围偏大，非终稿图）。\n请替换为手动裁切结果：保留 请依照 Figure 3 图注中**实际标注**的分图字母手动裁切；若 safe 图含多个无关分图，只保留与本页教学重点相关的面板，勿臆造 a/b/c。；\n围绕本页重点「论文原图合并示例 — Figure 3」。\n勿带入图外正文、页眉页脚或邻页内容。\n【论文图注】图 3 120种次生代谢产物的生物可及性及其抗氧化潜力 110000 99.3a 96.5a 100 90.7a ytilibisseccaoiB\n【署名】Figure 3 裁自 Paul BM et al., 2025，2025，doi:10.1007/s13205-025-04276-8，许可：cached-prior-allowed。",
-          "alt_text": "示意图：论文示例（合并）：Figure 3。论文原图合并示例 — Figure 3",
-          "resolution_status": "resolved",
-          "blocked_reason": null,
-          "base_purpose": "论文原图合并示例 — Figure 3",
-          "prompt_history": [
-            "把漏斗画成四段"
-          ]
-        },
-        "figure_thumb_url": "showcase/my-ppt/files/images/S193/_thumbs/S193_p6_figure3_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_18_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_18.png"
-      },
-      {
-        "page_id": "P19",
-        "order": 19,
-        "page_role": "content",
-        "page_title": "论文示例（合并）：Figure 2",
-        "key_message": "经典Ro5 — MW<500, LogP<5, HBD≤5, HBA≤10",
-        "on_slide_text": [
-          "本课统一论文示例：Figure 2",
-          "下列讲授页与本图部分相关；各页主幻灯片以自制示意图为准，此处对照阅读原文",
-          "· P14 ADMET性质的分子基础：类药五原则(Ro5)及其超越",
-          "· P15 ADMET性质的分子基础：代谢稳定性与毒性规避",
-          "· P16 ADMET性质的分子基础：hERG心脏毒性的结构预警",
-          "Figure 2 裁自 Paul BM et al., 2025，2025，doi:10.1007/s13205-025-04276-8，许可：cached-prior-allowed。"
-        ],
-        "resolution_status": "resolved",
-        "selected_figure_id": "F011",
-        "layout": "figure_focus",
-        "visual_plan": {
-          "purpose": "论文原图合并示例 — Figure 2",
-          "layout": "figure_focus",
-          "visual_type": "ai_scientific_illustration",
-          "candidate_figure_ids": [
-            "F011"
-          ],
-          "selected_figure_id": "F011",
-          "caption": "【裁剪说明】下图为自动 safe 素材（范围偏大，非终稿图）。\n请替换为手动裁切结果：保留 请依照 Figure 2 图注中**实际标注**的分图字母手动裁切；若 safe 图含多个无关分图，只保留与本页教学重点相关的面板，勿臆造 a/b/c。；\n围绕本页重点「论文原图合并示例 — Figure 2」。\n勿带入图外正文、页眉页脚或邻页内容。\n【论文图注】图 2 *B. retusa* 叶提取物的体外抗氧化活性。(a) DPPH自由基清除活性。(b) 磷钼还原活性。(c) ABTS自由基清除活性。(d) 一氧化氮自由基清除活性。\n【署名】Figure 2 裁自 Paul BM et al., 2025，2025，doi:10.1007/s13205-025-04276-8，许可：cached-prior-allowed。",
-          "alt_text": "示意图：论文示例（合并）：Figure 2。论文原图合并示例 — Figure 2",
-          "resolution_status": "resolved",
-          "blocked_reason": null,
-          "base_purpose": "论文原图合并示例 — Figure 2",
-          "prompt_history": [
-            "把漏斗画成四段"
-          ]
-        },
-        "figure_thumb_url": "showcase/my-ppt/files/images/S193/_thumbs/S193_p6_figure2_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_19_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_19.png"
-      },
-      {
-        "page_id": "P20",
-        "order": 20,
+        "page_id": "P15",
+        "order": 15,
         "page_role": "content",
         "page_title": "ADMET性质的分子基础：代谢稳定性与毒性规避",
         "key_message": "代谢软位点 — 苄位、N-脱烷基、酯水解等易氧化/水解位点",
@@ -18747,7 +18559,7 @@
             "F030"
           ],
           "selected_figure_id": "F030",
-          "caption": "本课件自制示意图，用于「ADMET性质的分子基础：代谢稳定性与毒性规避」。",
+          "caption": null,
           "alt_text": "示意图：ADMET性质的分子基础：代谢稳定性与毒性规避。CYP450代谢热点标记图 + 氘代/氟代/环丙烷化等封闭策略示例",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18758,12 +18570,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F030_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_20_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_20.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_15_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_15.png"
       },
       {
-        "page_id": "P21",
-        "order": 21,
+        "page_id": "P16",
+        "order": 16,
         "page_role": "content",
         "page_title": "ADMET性质的分子基础：hERG心脏毒性的结构预警",
         "key_message": "普遍风险 — 多数阳离子两亲分子都可能结合hERG",
@@ -18784,7 +18596,7 @@
             "F031"
           ],
           "selected_figure_id": "F031",
-          "caption": "本课件自制示意图，用于「ADMET性质的分子基础：hERG心脏毒性的结构预警」。",
+          "caption": null,
           "alt_text": "示意图：ADMET性质的分子基础：hERG心脏毒性的结构预警。hERG通道结合口袋特征 + 常见hERG抑制剂药效团(碱性氮+疏水芳环)",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18795,12 +18607,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F031_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_21_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_21.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_16_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_16.png"
       },
       {
-        "page_id": "P22",
-        "order": 22,
+        "page_id": "P17",
+        "order": 17,
         "page_role": "content",
         "page_title": "多参数优化(MPO)的决策框架：没有完美分子，只有最佳折衷",
         "key_message": "参数冲突 — 提高脂溶性增活性但损溶解度/增毒性",
@@ -18819,7 +18631,7 @@
             "F032"
           ],
           "selected_figure_id": "F032",
-          "caption": "本课件自制示意图，用于「多参数优化(MPO)的决策框架：没有完美分子，只有最佳折衷」。",
+          "caption": null,
           "alt_text": "示意图：多参数优化(MPO)的决策框架：没有完美分子，只有最佳折衷。雷达图/热力图展示同一系列化合物在活性/溶解度/渗透性/代谢间的trade-off",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18830,12 +18642,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F032_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_22_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_22.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_17_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_17.png"
       },
       {
-        "page_id": "P23",
-        "order": 23,
+        "page_id": "P18",
+        "order": 18,
         "page_role": "content",
         "page_title": "多参数优化(MPO)的决策框架：案例复盘：从先导到候选药物的蜕变",
         "key_message": "起点问题 — 初始Hit活性好但代谢快/选择性差",
@@ -18854,7 +18666,7 @@
             "F033"
           ],
           "selected_figure_id": "F033",
-          "caption": "本课件自制示意图，用于「多参数优化(MPO)的决策框架：案例复盘：从先导到候选药物的蜕变」。",
+          "caption": null,
           "alt_text": "示意图：多参数优化(MPO)的决策框架：案例复盘：从先导到候选药物的蜕变。某上市药物(如Imatinib/Osimertinib)优化历程时间轴：关键结构变更→解决的问题→获得的性质提升",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18865,12 +18677,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F033_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_23_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_23.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_18_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_18.png"
       },
       {
-        "page_id": "P24",
-        "order": 24,
+        "page_id": "P19",
+        "order": 19,
         "page_role": "content",
         "page_title": "AI与自动化重塑药物设计：AI能做什么？不能做什么？",
         "key_message": "已验证价值 — ADMET预测、逆合成路线、虚拟筛选富集",
@@ -18889,7 +18701,7 @@
             "F034"
           ],
           "selected_figure_id": "F034",
-          "caption": "本课件自制示意图，用于「AI与自动化重塑药物设计：AI能做什么？不能做什么？」。",
+          "caption": null,
           "alt_text": "示意图：AI与自动化重塑药物设计：AI能做什么？不能做什么？。AI应用成熟度矩阵：高置信区(性质预测/合成规划) vs 低置信区(de novo设计/靶点发现)",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18900,12 +18712,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F034_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_24_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_24.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_19_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_19.png"
       },
       {
-        "page_id": "P25",
-        "order": 25,
+        "page_id": "P20",
+        "order": 20,
         "page_role": "content",
         "page_title": "AI与自动化重塑药物设计：闭环自动化：干湿实验的无缝迭代",
         "key_message": "传统瓶颈 — 人工操作慢、主观偏差、数据孤岛",
@@ -18924,7 +18736,7 @@
             "F035"
           ],
           "selected_figure_id": "F035",
-          "caption": "本课件自制示意图，用于「AI与自动化重塑药物设计：闭环自动化：干湿实验的无缝迭代」。",
+          "caption": null,
           "alt_text": "示意图：AI与自动化重塑药物设计：闭环自动化：干湿实验的无缝迭代。Self-driving Lab工作流程图：AI建议→机器人合成→自动检测→数据反馈更新模型",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18935,12 +18747,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F035_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_25_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_25.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_20_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_20.png"
       },
       {
-        "page_id": "P26",
-        "order": 26,
+        "page_id": "P21",
+        "order": 21,
         "page_role": "content",
         "page_title": "课程核心思维模型回顾：三个带走的核心认知",
         "key_message": "多维平衡 — 药物设计是多目标优化，非单指标竞赛",
@@ -18961,7 +18773,7 @@
             "F036"
           ],
           "selected_figure_id": "F036",
-          "caption": "本课件自制示意图，用于「课程核心思维模型回顾：三个带走的核心认知」。",
+          "caption": null,
           "alt_text": "示意图：课程核心思维模型回顾：三个带走的核心认知。展示来源图 Figure 2，服务于知识点「课程核心思维模型回顾」",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -18972,49 +18784,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F036_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_26_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_26.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_21_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_21.png"
       },
       {
-        "page_id": "P27",
-        "order": 27,
-        "page_role": "content",
-        "page_title": "论文示例（合并）：Figure 2",
-        "key_message": "多维平衡 — 药物设计是多目标优化，非单指标竞赛",
-        "on_slide_text": [
-          "本课统一论文示例：Figure 2",
-          "下列讲授页与本图部分相关；各页主幻灯片以自制示意图为准，此处对照阅读原文",
-          "· P21 课程核心思维模型回顾：三个带走的核心认知",
-          "· P22 课程核心思维模型回顾：下一步学习路径建议",
-          "Figure 2 裁自 Refahi MS et al., 2026，2026，doi:10.3390/biology15120971，许可：cc-by。"
-        ],
-        "resolution_status": "resolved",
-        "selected_figure_id": "F016",
-        "layout": "figure_focus",
-        "visual_plan": {
-          "purpose": "论文原图合并示例 — Figure 2",
-          "layout": "figure_focus",
-          "visual_type": "ai_scientific_illustration",
-          "candidate_figure_ids": [
-            "F016"
-          ],
-          "selected_figure_id": "F016",
-          "caption": "【裁剪说明】下图为自动 safe 素材（范围偏大，非终稿图）。\n请替换为手动裁切结果：保留 请依照 Figure 2 图注中**实际标注**的分图字母手动裁切；若 safe 图含多个无关分图，只保留与本页教学重点相关的面板，勿臆造 a/b/c。；\n围绕本页重点「论文原图合并示例 — Figure 2」。\n勿带入图外正文、页眉页脚或邻页内容。\n【论文图注】图 2 （a）波形蛋白二聚体的全原子结构；（b）波形蛋白二聚体与交联共聚物网络相互作用的示意图［20］ AA：氨基酸；Exp：实验；Sim：模拟。\n【署名】Figure 2 裁自 Refahi MS et al., 2026，2026，doi:10.3390/biology15120971，许可：cc-by。",
-          "alt_text": "示意图：论文示例（合并）：Figure 2。论文原图合并示例 — Figure 2",
-          "resolution_status": "resolved",
-          "blocked_reason": null,
-          "base_purpose": "论文原图合并示例 — Figure 2",
-          "prompt_history": [
-            "把漏斗画成四段"
-          ]
-        },
-        "figure_thumb_url": "showcase/my-ppt/files/images/S010/_thumbs/S010_p5_figure2_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_27_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_27.png"
-      },
-      {
-        "page_id": "P28",
-        "order": 28,
+        "page_id": "P22",
+        "order": 22,
         "page_role": "content",
         "page_title": "课程核心思维模型回顾：下一步学习路径建议",
         "key_message": "计算方向 — RDKit教程、ChEMBL数据挖掘、OpenFold实践",
@@ -19035,7 +18810,7 @@
             "F037"
           ],
           "selected_figure_id": "F037",
-          "caption": "本课件自制示意图，用于「课程核心思维模型回顾：下一步学习路径建议」。",
+          "caption": null,
           "alt_text": "示意图：课程核心思维模型回顾：下一步学习路径建议。展示来源图 Figure 2，服务于知识点「课程核心思维模型回顾」",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -19046,19 +18821,19 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F037_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_28_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_28.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_22_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_22.png"
       },
       {
-        "page_id": "P29",
-        "order": 29,
+        "page_id": "P23",
+        "order": 23,
         "page_role": "content",
         "page_title": "伊马替尼从靶点到上市的关键决策：案例背景与靶点选择逻辑",
         "key_message": "疾病生物学背景与未满足临床需求",
         "on_slide_text": [
-          "疾病生物学背景与未满足临床需求",
-          "靶点可药性评估的关键证据链",
-          "早期竞争格局与差异化策略"
+          "CML 由 BCR-ABL 驱动，传统化疗/干扰素难以长期控制",
+          "费城染色体与 BCR-ABL 融合提供遗传学因果证据",
+          "选择激酶 ATP 口袋作为可药位点，走靶向而非广谱细胞毒"
         ],
         "resolution_status": "resolved",
         "selected_figure_id": "F038",
@@ -19070,7 +18845,7 @@
             "F038"
           ],
           "selected_figure_id": "F038",
-          "caption": "本课件自制示意图，用于「伊马替尼从靶点到上市的关键决策：案例背景与靶点选择逻辑」。",
+          "caption": null,
           "alt_text": "示意图：伊马替尼从靶点到上市的关键决策：案例背景与靶点选择逻辑。靶点作用机制与疾病通路示意图",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -19081,19 +18856,19 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F038_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_29_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_29.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_23_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_23.png"
       },
       {
-        "page_id": "P30",
-        "order": 30,
+        "page_id": "P24",
+        "order": 24,
         "page_role": "content",
         "page_title": "伊马替尼从靶点到上市的关键决策：先导物发现与优化中的关键权衡",
         "key_message": "苗头化合物识别策略（HTS/FBDD/VS）",
         "on_slide_text": [
-          "苗头化合物识别策略（HTS/FBDD/VS）",
-          "SAR迭代中活性-ADMET的取舍实例",
-          "最终候选分子确定的多维参数平衡"
+          "从激酶抑制剂通识出发，锁定 2-苯胺基嘧啶骨架",
+          "引入氢键受体与侧链，在活性与选择性之间迭代取舍",
+          "口服成药性、安全窗与工艺可及性共同决定候选分子"
         ],
         "resolution_status": "resolved",
         "selected_figure_id": "F039",
@@ -19105,7 +18880,7 @@
             "F039"
           ],
           "selected_figure_id": "F039",
-          "caption": "本课件自制示意图，用于「伊马替尼从靶点到上市的关键决策：先导物发现与优化中的关键权衡」。",
+          "caption": null,
           "alt_text": "示意图：伊马替尼从靶点到上市的关键决策：先导物发现与优化中的关键权衡。先导优化阶段关键结构修饰与性质变化趋势图",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -19116,12 +18891,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F039_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_30_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_30.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_24_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_24.png"
       },
       {
-        "page_id": "P31",
-        "order": 31,
+        "page_id": "P25",
+        "order": 25,
         "page_role": "content",
         "page_title": "伊马替尼从靶点到上市的关键决策：BCR-ABL靶点确证与2-苯胺基嘧啶骨架发现",
         "key_message": "遗传学证据确立BCR-ABL为CML驱动靶点",
@@ -19140,7 +18915,7 @@
             "F040"
           ],
           "selected_figure_id": "F040",
-          "caption": "本课件自制示意图，用于「伊马替尼从靶点到上市的关键决策：BCR-ABL靶点确证与2-苯胺基嘧啶骨架发现」。",
+          "caption": null,
           "alt_text": "示意图：伊马替尼从靶点到上市的关键决策：BCR-ABL靶点确证与2-苯胺基嘧啶骨架发现。BCR-ABL融合蛋白结构示意图及伊马替尼结合模式图",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -19151,19 +18926,19 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F040_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_31_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_31.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_25_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_25.png"
       },
       {
-        "page_id": "P32",
-        "order": 32,
+        "page_id": "P26",
+        "order": 26,
         "page_role": "content",
         "page_title": "伊马替尼从靶点到上市的关键决策：克服耐药性与成药性优化的权衡",
         "key_message": "针对T315I等突变体的结构修饰策略",
         "on_slide_text": [
-          "针对T315I等突变体的结构修饰策略",
-          "提升口服生物利用度的理化性质调整",
-          "临床前毒理与代谢稳定性测试的取舍"
+          "一代药后出现耐药突变（如 T315I）；尼洛替尼覆盖部分突变，T315I 需后续药物",
+          "成药性优化：改善溶解性/代谢稳定性以支持口服给药",
+          "临床前毒理与代谢稳定性测试决定能否推进 IND"
         ],
         "resolution_status": "resolved",
         "selected_figure_id": "F041",
@@ -19175,7 +18950,7 @@
             "F041"
           ],
           "selected_figure_id": "F041",
-          "caption": "本课件自制示意图，用于「伊马替尼从靶点到上市的关键决策：克服耐药性与成药性优化的权衡」。",
+          "caption": null,
           "alt_text": "示意图：伊马替尼从靶点到上市的关键决策：克服耐药性与成药性优化的权衡。伊马替尼及其衍生物的化学结构演变与ADMET参数对比表",
           "resolution_status": "resolved",
           "blocked_reason": null,
@@ -19186,12 +18961,12 @@
           ]
         },
         "figure_thumb_url": "showcase/my-ppt/files/generated/_thumbs/F041_safe_w400.webp",
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_32_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_32.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_26_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_26.png"
       },
       {
-        "page_id": "P33",
-        "order": 33,
+        "page_id": "P27",
+        "order": 27,
         "page_role": "summary",
         "page_title": "要点回顾",
         "key_message": "用三条线收束本节：组分、机制、意义。",
@@ -19218,12 +18993,12 @@
           "layout": "text_only"
         },
         "figure_thumb_url": null,
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_33_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_33.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_27_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_27.png"
       },
       {
-        "page_id": "P34",
-        "order": 34,
+        "page_id": "P28",
+        "order": 28,
         "page_role": "references",
         "page_title": "参考文献",
         "key_message": "本节引用的主要来源。",
@@ -19254,35 +19029,8 @@
           "layout": "text_only"
         },
         "figure_thumb_url": null,
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_34_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_34.png"
-      },
-      {
-        "page_id": "P35",
-        "order": 35,
-        "page_role": "thanks",
-        "page_title": "谢谢",
-        "key_message": "小分子药物设计的关键技术",
-        "on_slide_text": [
-          "小分子药物设计的关键技术"
-        ],
-        "resolution_status": "not_needed",
-        "selected_figure_id": null,
-        "layout": "text_only",
-        "visual_plan": {
-          "purpose": "致谢页纯文字，不配图",
-          "visual_type": "none",
-          "candidate_figure_ids": [],
-          "selected_figure_id": null,
-          "caption": null,
-          "alt_text": null,
-          "resolution_status": "not_needed",
-          "blocked_reason": null,
-          "layout": "text_only"
-        },
-        "figure_thumb_url": null,
-        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_35_w400.webp",
-        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_35.png"
+        "export_thumb_url": "showcase/my-ppt/files/deck/slide_exports/_thumbs/slide_28_w400.webp",
+        "export_preview_url": "showcase/my-ppt/files/deck/slide_exports/slide_28.png"
       }
     ]
   },

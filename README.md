@@ -1,18 +1,32 @@
 # Sci Teaching Studio
 
-把 **sci-teaching-deck** Skill 装进人在环 Web 工作台（交互参考 Jumpx PPT Studio）。
+把 **sci-teaching-deck** Skill 装进人在环 Web 工作台：LangGraph Agent 编排全流程，关键节点门禁确认。
+
+| | 链接 |
+|---|------|
+| **本仓库** | https://github.com/13781679184-cxw/sci-teaching-studio |
+| **引擎 Skill** | https://github.com/13781679184-cxw/sci-teaching-deck |
+| **在线演示（静态快照）** | https://sci-teaching-studio.pages.dev/ |
+
+## 能力概览
+
+- **LangGraph Agent** — 一条编排链路串联大纲、检索筛选、证据提取（含向量 RAG）、配图规划、裁剪、出片与交付；工具调用 deck 脚本，线程可恢复
+- **三门禁 HITL** — 大纲 / 文献名单 / 证据与配图：`interrupt` 等人确认，`resume` 继续
+- **双入口** — Agent 一键跑通（`POST /projects/{id}/agent/run`）或按步 Jobs + 手动门禁，JSON / PPTX 均为事实源
 
 | 层 | 职责 |
 |----|------|
+| `backend/agent/` | LangGraph 编排、interrupt / resume |
 | `backend/teaching_api.py` | 项目 / 门禁 / jobs |
 | `frontend/` | Vite + React 门禁工作台 |
-| `../sci-teaching-deck` | 真正的生成引擎（脚本不改写） |
+| `../sci-teaching-deck` | 生成引擎（Skill + 脚本） |
 
 **文档**
 
-- 自己从 GitHub 装起来跑：[`RUN.md`](RUN.md)（含：仓库里没有什么、为何只下载不够）
-- 临时公网分享本机 Studio：[`SHARE-HOURS.md`](SHARE-HOURS.md)（访客不必 clone）
-- **在线演示站**（静态快照、无真实后端）：主链接 **[Cloudflare Pages](https://sci-teaching-studio.pages.dev/)**（见 [`CLOUDFLARE-PAGES.md`](CLOUDFLARE-PAGES.md)）。GitHub Pages 镜像国内常打不开，仅作备用。
+- 本地启动：[`RUN.md`](RUN.md)
+- LangGraph Agent API：[`backend/AGENT-LANGGRAPH.md`](backend/AGENT-LANGGRAPH.md)
+- 临时公网分享：[`SHARE-HOURS.md`](SHARE-HOURS.md)
+- 在线演示站（静态快照）：**[Cloudflare Pages](https://sci-teaching-studio.pages.dev/)**（见 [`CLOUDFLARE-PAGES.md`](CLOUDFLARE-PAGES.md)）
 
 ### 演示站（Cloudflare Pages · 主）
 
